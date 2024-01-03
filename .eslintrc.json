@@ -1,3 +1,20 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "./node_modules/standard/eslintrc.json"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "@next/next/no-img-element": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "camelcase": "off",
+    "jsx-a11y/alt-text": [ 2, {
+        "elements": [ "img", "object", "area", "input[type=\"image\"]" ],
+        "img": ["Image"],
+        "object": ["Object"],
+        "area": ["Area"],
+        "input[type=\"image\"]": ["InputImage"]
+      }]
+  }
 }
