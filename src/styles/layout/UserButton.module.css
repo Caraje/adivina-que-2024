@@ -1,0 +1,9 @@
+
+.user_menu {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
