@@ -1,0 +1,35 @@
+
+.nav_categories {
+  width: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--aq-highlights);
+  border-radius: 500px ;
+  padding: .5rem 1.5rem;
+
+}
+
+.cat_link{
+  font-size: 1.4rem; 
+  font-weight: 700;
+  transition: 
+  scale .2s ease-in-out,
+  color .2s ease-in-out,
+  filter .2s ease-in-out;
+}
+
+.cat_link:hover {
+  color: var(--aq-green);
+  scale: 1.05;
+  filter: 
+  brightness(1.5)
+  drop-shadow(0 0 15px var(--aq-shadowsGreen));
+}
+
+.cat_link_active {
+  color: var(--aq-green);
+  font-size: 1.4rem; 
+  font-weight: 700;
+}
