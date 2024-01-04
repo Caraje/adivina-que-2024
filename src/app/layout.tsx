@@ -1,38 +1,37 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import '@/styles/globals.css'
+import styles from '@/styles/layout/layout.module.css'
 import Link from 'next/link'
+import { NavCategories } from '@/components/layout/NavCategories'
+import { UserButton } from '@/components/layout/UserButton'
 
-const inter = Inter({ subsets: ['latin'] })
-
+const nunito = Nunito({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Adivina que',
   description: 'Pon a prueba tu conocimiento sobre series, peliculas y videojuegos',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
+
   return (
     <html lang="es">
-      <body className={inter.className}>
-        <header>
-          <img 
-            src='./static_img/logo.webp' 
-            alt='/'
-            width={100} 
-            height={'auto'}
+      <body className={`${nunito.className} ${styles.bodyLayout}`}>
+        <header className={styles.navbar}>
+          <Link 
+            href='/'
+            className={styles.logoLink}
+          >
+            <img 
+              src='./static_img/logo.webp' 
+              alt='/'
+              width={100} 
+              height={'auto'}
+              className={styles.logo}
             />
-          <nav>
-            <Link href='/'>Peliculas</Link>
-            <Link href='/'>Series</Link>
-            <Link href='/'>Videojuegos</Link>
-          </nav>
-          <section>
-            user
-          </section>
+          </Link>
+          <NavCategories />
+          <UserButton />
         </header>
         {children}
       </body>
