@@ -1,0 +1,33 @@
+.bodyLayout{
+  max-width: 1400px;
+  margin: 0 auto;
+  color: var(--aq-light);
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+}
+
+
+.logoLink{
+  /* flex-grow: 1; */
+  width: 7rem;
+  transition: 
+    scale .2s ease-in-out,
+    filter .2s ease-in-out;
+}
+
+.logoLink:hover {
+  scale: 1.05;
+  filter: drop-shadow(0 0 10px var(--aq-shadowsGreen));
+}
+
+.logo {
+  width: 100%;
+  object-fit: cover;
+}
