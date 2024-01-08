@@ -1,12 +1,11 @@
 :root {
   --aq-green: rgb(0, 214, 135);
-  --aq-background: hsl(229, 84%, 5%);
+  --aq-background: rgb(2, 6, 23);
   --aq-alert: hsl(358, 66%, 45%);
   --aq-dark: hsl(0, 0%, 20%);
   --aq-light: hsl(0, 0%, 93%);
   --aq-highlights: rgb(0, 214, 135, .5);
-  --aq-shadowsGreen: rgb(0, 214, 135, .5);
-}
+  --aq-shadowsGreen: rgb(0, 214, 135, .3);}
 
 
 * {
@@ -26,3 +25,25 @@ a {
   text-decoration: none;
 }
 
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #00d687 #020617;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #00d687;
+    border-radius: 10px;
+    border: 10px solid #fff;
+  }
