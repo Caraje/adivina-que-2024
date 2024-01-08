@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 
 export const NavCategories = () => {
   const pathname = usePathname()
-  console.log(pathname)
   return (
     <nav className={styles.nav_categories}>
       <Link 
