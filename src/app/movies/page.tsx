@@ -1,6 +1,9 @@
+import { GamePage } from "@/components/categories/GamePage";
+
+
 
 export default function MoviesPage() {
   return (
-    <h1>Movies</h1>
+    <GamePage cat={'cine'} />
   )
 }
