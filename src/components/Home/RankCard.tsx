@@ -1,36 +1,40 @@
 import { RankList } from '@/types/types'
 import styles from '@/styles/Home/RankCard.module.css'
+import stylesGame from '@/styles/catagories/RankCardGame.module.css'
 import Link from 'next/link'
 interface Props {
   cat: string, 
-  list: RankList[]
+  list: RankList[],
+  isGame: boolean
 }
 
-export const RankCard: React.FC<Props> = ({cat, list}) => {
+export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
+
+  const stylesComponent= isGame ? stylesGame : styles
   return (
-    <article className={styles.card}>
-      <h3 className={styles.card_title}>{cat}</h3>
-        <ol className={styles.rank_list}>
+    <article className={stylesComponent.card}>
+      <h3 className={stylesComponent.card_title}>{cat}</h3>
+        <ol className={stylesComponent.rank_list}>
           {
             list.map(user => (
               <Link 
                 href={'/user/id'}
-                className={styles.user_link}
+                className={stylesComponent.user_link}
               >
                 <li 
                   key={user.id}
-                  className={styles.user}
+                  className={stylesComponent.user}
                   >
                   <img 
                     src={user.avatar}
                     alt={`avatar de ${user.name}`}
                     width={50}
                     height={50}
-                    className={styles.user_avatar}
+                    className={stylesComponent.user_avatar}
                     />
-                  <div className={styles.user_info}>
-                    <h4 className={styles.user_name}>{user.name}</h4>
-                    <p className={styles.user_points}>{user.points}</p>
+                  <div className={stylesComponent.user_info}>
+                    <h4 className={stylesComponent.user_name}>{user.name}</h4>
+                    <p className={stylesComponent.user_points}>{user.points}</p>
                   </div>
                 </li>
               </Link>
