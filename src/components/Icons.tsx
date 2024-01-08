@@ -11,24 +11,24 @@ export const IconUser: React.FC<Props> = ({ size = 50 }) => {
 }
 export const IconScore: React.FC<Props> = ({ size = 50 }) => {
   return (
-<svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" d="M5.615 20q-.69 0-1.152-.462Q4 19.075 4 18.385V5.615q0-.69.463-1.152Q4.925 4 5.615 4h12.77q.69 0 1.152.463q.463.462.463 1.152v12.77q0 .69-.462 1.152q-.463.463-1.153.463zM9 13.27l4 4l6-6V5.614q0-.23-.192-.423Q18.615 5 18.385 5H5.615q-.23 0-.423.192Q5 5.385 5 5.615V17.27zm3.308-1.578V6.308h.884v5.384zm3.038 0L13.192 9l2.154-2.692h1.085L14.277 9l2.154 2.692zm-8.038 0V8.558h2.5V7.192h-2.5v-.884h3.384v3.134h-2.5v1.366h2.5v.884zM9 14.615l-4 4q.02.097.183.24q.163.145.432.145h12.77q.23 0 .423-.192q.192-.193.192-.423v-5.77l-6 6zm-4 3.77V19V5z"/>
-
+<svg width={size} height={size} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="m22 27.18l-2.59-2.59L18 26l4 4l8-8l-1.41-1.41z"/>
+    <path fill="currentColor" d="M25 5h-3V4a2.006 2.006 0 0 0-2-2h-8a2.006 2.006 0 0 0-2 2v1H7a2.006 2.006 0 0 0-2 2v21a2.006 2.006 0 0 0 2 2h9v-2H7V7h3v3h12V7h3v11h2V7a2.006 2.006 0 0 0-2-2m-5 3h-8V4h8Z"/>
 </svg>
   )
 }
 
 export const IconError: React.FC<Props> = ({ size = 50 }) => {
   return (
-<svg width={size} height={size} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" d="M50.592 2.291L32 20.884C25.803 14.689 19.604 8.488 13.406 2.291c-7.17-7.17-18.284 3.948-11.12 11.12c6.199 6.193 12.4 12.395 18.592 18.592A32589.37 32589.37 0 0 1 2.286 50.595c-7.164 7.168 3.951 18.283 11.12 11.12c6.197-6.199 12.396-12.399 18.593-18.594l18.592 18.594c7.17 7.168 18.287-3.951 11.12-11.12c-6.199-6.199-12.396-12.396-18.597-18.594c6.2-6.199 12.397-12.398 18.597-18.596c7.168-7.166-3.949-18.284-11.12-11.11"/>
+<svg width={size} height={size} viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" fill-rule="evenodd" d="M8 14.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m1-5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-.25-6.25a.75.75 0 0 0-1.5 0v3.5a.75.75 0 0 0 1.5 0z" clip-rule="evenodd"/>
 </svg>
   )
 }
 export const IconRight: React.FC<Props> = ({ size = 50 }) => {
   return (
-<svg width={size} height={size} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" d="M56 2L18.8 42.9L8 34.7H2L18.8 62L62 2z"/>
+<svg width={size} height={size} viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M600 0C268.63 0 0 268.63 0 600s268.63 600 600 600c331.369 0 600-268.63 600-600S931.369 0 600 0m0 130.371c259.369 0 469.556 210.325 469.556 469.629c0 259.305-210.187 469.556-469.556 469.556c-259.37 0-469.556-210.251-469.556-469.556C130.445 340.696 340.63 130.371 600 130.371m229.907 184.717L482.153 662.915L369.36 550.122L258.691 660.718l112.793 112.793l111.401 111.401l110.597-110.669l347.826-347.754z"/>
 </svg>
   )
 }
