@@ -1,0 +1,45 @@
+
+.canvas{
+  margin-top: 2rem;
+  position: relative;
+  width: 40rem;
+  aspect-ratio: 16/9;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+  filter: drop-shadow(0 0 15px var(--aq-shadowsGreen));
+}
+.frame_Level{
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 15px;
+  
+}
+.answer_banner_correct {
+  position: absolute;
+  z-index: 10;
+  bottom: 2rem;
+  width: 75%;
+  background-color: var(--aq-green);
+  text-align: center;
+  color: var(--aq-dark);
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.answer_banner_incorrect {
+  position: absolute;
+  z-index: 10;
+  bottom: 2rem;
+  width: 75%;
+  background-color: var(--aq-alert);
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
