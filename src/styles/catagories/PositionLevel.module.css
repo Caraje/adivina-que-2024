@@ -1,0 +1,33 @@
+.container{
+  display: flex;
+  gap: 1rem
+}
+
+.button_actual{
+  border: 1px solid var(--aq-green);
+  border-radius: 25px;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--aq-light) ;
+}
+.button_correct{
+  border: 1px solid var(--aq-green);
+  border-radius: 25px;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--aq-green);
+}
+.button_error{
+  border: 1px solid var(--aq-green);
+  border-radius: 25px;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--aq-alert);
+}
+.button{
+  border: 1px solid var(--aq-green);
+  border-radius: 25px;
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+}
