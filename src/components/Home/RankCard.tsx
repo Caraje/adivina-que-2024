@@ -20,9 +20,9 @@ export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
               <Link 
                 href={'/user/id'}
                 className={stylesComponent.user_link}
+                key={user.id}
               >
                 <li 
-                  key={user.id}
                   className={stylesComponent.user}
                   >
                   <img 
