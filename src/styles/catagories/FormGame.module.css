@@ -1,0 +1,48 @@
+.container {
+  width: 40rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form_input {
+  /* width: 100%; */
+  flex-grow: 1;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+
+.button_group{
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+}
+
+.btn_clue {
+  border:none;
+  background-color: var(--aq-yellow);
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: scale .2s ease-in-out;
+  
+}
+
+.btn_next, .btn_send {
+  border:none;
+  background-color: var(--aq-green);
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: scale .2s ease-in-out;
+}
+
+.btn_next:hover, .btn_send:hover, .btn_clue:hover {
+  cursor:pointer;
+  scale: 1.05;
+}
