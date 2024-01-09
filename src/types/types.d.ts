@@ -13,17 +13,6 @@ type Networks = {
   network_url: string
 }
 
-type Level = {
-  level_id: string, 
-  level_correct: string, 
-  level_errors: number, 
-  level_points: number, 
-}
-type DataGame = {
-  movies: Level[],
-  series: Level[],
-  videogames: Level[]
-}
 export type User = {
   user_id: string,
   user_name: string,
@@ -31,5 +20,34 @@ export type User = {
   user_avatar: string,
   user_created: string,
   user_networks: Networks[],
-  user_datagame: DataGame,
+  user_datagame: {
+    movies: {
+      level_id: string, 
+      level_correct: string, 
+      level_errors: number, 
+      level_points: number, 
+    },
+    series: {
+      level_id: string, 
+      level_correct: string, 
+      level_errors: number, 
+      level_points: number, 
+    },
+    videogames: {
+      level_id: string, 
+      level_correct: string, 
+      level_errors: number, 
+      level_points: number, 
+    }
+  },
+}
+
+
+export type LevelGame = {
+  level_id: string,
+  level_category: number,
+  level_answers: string[],
+  level_images: {img: string}[],
+  image_correct: string, 
+  level_clue:  {clue: string | clue}[]
 }
