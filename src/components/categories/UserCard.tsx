@@ -3,7 +3,6 @@ import { exampleUser } from '@/utils/exampleActiveUser'
 import { IconError, IconRight, IconScore } from '../Icons'
 
 export const UserCard = () => {
-  exampleUser
   return (
     <article className={styles.card}>
       <img 
