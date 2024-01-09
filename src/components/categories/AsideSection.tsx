@@ -7,7 +7,7 @@ interface Props {
   cat: string
 }
 
-const AsideSection: React.FC<Props> = ({cat}) => {
+export const AsideSection: React.FC<Props> = ({cat}) => {
   return (
     <section className={styles.container}>
         <UserCard />
@@ -17,5 +17,3 @@ const AsideSection: React.FC<Props> = ({cat}) => {
     </section>
   )
 }
-
-export default AsideSection
