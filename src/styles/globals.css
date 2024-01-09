@@ -1,9 +1,10 @@
 :root {
   --aq-green: rgb(0, 214, 135);
   --aq-background: rgb(2, 6, 23);
-  --aq-alert: hsl(358, 66%, 45%);
-  --aq-dark: hsl(0, 0%, 20%);
-  --aq-light: hsl(0, 0%, 93%);
+  --aq-alert: rgb(190, 39, 44);
+  --aq-yellow: rgb(231, 199, 21);
+  --aq-dark: rgb(51, 51, 51);
+  --aq-light: rgb(237, 237, 237);
   --aq-highlights: rgb(0, 214, 135, .5);
   --aq-shadowsGreen: rgb(0, 214, 135, .3);}
 
