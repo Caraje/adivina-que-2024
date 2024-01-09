@@ -1,5 +1,5 @@
 import styles from '@/styles/catagories/GamePage.module.css'
-import AsideSection from './AsideSection'
+import {AsideSection} from './AsideSection'
 import { GameSection } from './GameSection'
 
 interface Props {
