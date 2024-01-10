@@ -23,22 +23,22 @@ export type User = {
   user_datagame: {
     movies: {
       level_id: string, 
-      level_correct: string, 
+      level_correct: boolen, 
       level_errors: number, 
       level_points: number, 
-    },
+    }[],
     series: {
       level_id: string, 
-      level_correct: string, 
+      level_correct: boolen, 
       level_errors: number, 
       level_points: number, 
-    },
+    }[],
     videogames: {
       level_id: string, 
-      level_correct: string, 
+      level_correct: boolen, 
       level_errors: number, 
       level_points: number, 
-    }
+    }[]
   },
 }
 
@@ -51,3 +51,7 @@ export type LevelGame = {
   image_correct: string, 
   level_clue:  {clue: string | clue}[]
 }
+
+
+export type handleNextClue = () => void
+export type handleOpenLogin = () => void
