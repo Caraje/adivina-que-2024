@@ -6,12 +6,18 @@ import { CanvasGame } from './CanvasGame'
 import { PositionLevel } from './PositionLevel'
 import { useState } from 'react'
 import { FormGame } from './FormGame'
+import { ClueGame } from './ClueGame'
 export const GameSection = () => {
-  const [levelPosition, setLevelPosition] = useState(3)
-  const level = exampleLevelsList[0]
+  const [levelPosition, setLevelPosition] = useState(0)
+  const level = exampleLevelsList[1]
   const image = level.level_images[levelPosition].img
   const isCorrect = false
   const isIncorrect = false
+
+  const handleNextClue = () => {
+    if (levelPosition === 4 )  return
+    setLevelPosition(levelPosition + 1)
+  }
   return (
     <section className={styles.container}>
       <CanvasGame 
@@ -29,16 +35,17 @@ export const GameSection = () => {
       <FormGame 
         isCorrect={isCorrect}
         isIncorrect={isIncorrect}
+        handleNextClue={handleNextClue}
       />
       {
         levelPosition >= 1 &&
-        <ul>
-          {
-            level.level_clue.slice(0, levelPosition +1 ).map((clue, idx) => (              
-                clue.clue && <li key={idx}>{clue.clue}</li>
-              ))
-          }
-        </ul>
+        <section className={styles.container_clues}>
+          <h2 className={styles.title_clues}>Pistas:</h2>
+          <ClueGame
+            levelPosition={levelPosition}
+            clues={level.level_clue}
+          />
+        </section>
       }
     </section>
   )
