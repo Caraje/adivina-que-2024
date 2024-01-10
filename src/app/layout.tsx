@@ -5,6 +5,7 @@ import styles from '@/styles/layout/layout.module.css'
 import Link from 'next/link'
 import { NavCategories } from '@/components/layout/NavCategories'
 import { UserButton } from '@/components/layout/UserButton'
+import { Login } from '@/components/auth/Modal'
 
 const nunito = Nunito({ subsets: ['latin'] })
 export const metadata: Metadata = {
@@ -17,13 +18,14 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="es">
       <body className={`${nunito.className} ${styles.bodyLayout}`}>
+      <Login/>
         <header className={styles.navbar}>
           <Link 
             href='/'
             className={styles.logoLink}
           >
             <img 
-              src='./static_img/logo.webp' 
+              src='/static_img/logo.webp' 
               alt='/'
               width={100} 
               height={'auto'}
@@ -33,6 +35,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <NavCategories />
           <UserButton />
         </header>
+        
         {children}
       </body>
     </html>
