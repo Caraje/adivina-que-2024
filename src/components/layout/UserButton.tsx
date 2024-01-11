@@ -10,7 +10,10 @@ export const UserButton = () => {
   return (
     <section className={styles.user_menu}>
     {/* TODO: Crear botones para ir a registro/login y boton para abrir menu de usuario */}
-    <button onClick={toggleModal}>
+    <button 
+      onClick={toggleModal}
+      className={styles.btn_user}
+    >
       Login/Register <IconUser size={30} />
     </button>
   </section>
