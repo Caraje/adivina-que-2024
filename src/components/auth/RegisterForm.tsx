@@ -1,5 +1,7 @@
 import { useModalStore } from "@/store/modal-store"
 import styles from '@/styles/modalLogin/RegisterForm.module.css'
+import { createUser } from "@/controllers/register";
+import { useState } from "react";
 
 
 
@@ -8,6 +10,22 @@ interface Props {
 }
 export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
   const { toggleModal } = useModalStore()
+  const [isError, setisError] = useState({
+    status: false,
+    message: ''
+  })
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const userData = Object.fromEntries(formData.entries())
+    const newUser = await createUser(userData)
+    if (newUser.error) {
+      setisError({status:true, message: newUser.message})
+    }
+
+  }
+
   return (
 <section className={styles.container}>
       <section className={styles.user_section}>
@@ -17,23 +35,49 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
         >X</button>
         <header className={styles.form_container}>
           <h2 className={styles.title}>Registro</h2>
-          <form className={styles.form}>
+          <form 
+            className={styles.form}
+            onSubmit={handleForm}
+          >
             <label className={styles.form_label}>
               Nombre de usuario: 
-              <input className={styles.form_input}/>
+              <input 
+                className={styles.form_input}
+                type="text"
+                name='name'
+              />
             </label>
             <label className={styles.form_label}>
               Email: 
-              <input className={styles.form_input}/>
+              <input 
+                className={styles.form_input}
+                type="email"
+                name='email'
+              />
             </label>
             <label className={styles.form_label}>
               Password: 
-              <input className={styles.form_input}/>
+              <input 
+                className={styles.form_input}
+                type="password"
+                name='password'
+              />
+              {
+                isError.status && <p>{isError.message}</p>
+              }
             </label>
             <label className={styles.form_label}>
               Repite password: 
-              <input className={styles.form_input}/>
+              <input 
+                className={styles.form_input}
+                type="password"
+                name='password_repeat'
+              />
+              {
+                isError.status && isError.message
+              }
             </label>
+            <button>Enviar</button>
           </form>
         </header>
         <div className={styles.footer}>
