@@ -33,6 +33,7 @@ export const LoginForm: React.FC<Props> = ({ toRegister }) => {
               password: 
               <input className={styles.form_input}/>
             </label>
+          <button>Enviar</button>
           </form>
         </header>
 
