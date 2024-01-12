@@ -55,3 +55,11 @@ export type LevelGame = {
 
 export type handleNextClue = () => void
 export type handleOpenLogin = () => void
+
+
+export type CreateUser = {
+  name: string, 
+  email: string, 
+  password: string, 
+  password_repeat: string
+}
