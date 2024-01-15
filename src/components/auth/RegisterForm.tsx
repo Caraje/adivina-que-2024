@@ -2,6 +2,7 @@ import { useModalStore } from "@/store/modal-store"
 import styles from '@/styles/modalLogin/RegisterForm.module.css'
 import { createUser } from "@/controllers/register";
 import { useState } from "react";
+import { CreateUser } from "@/types/types";
 
 
 
@@ -14,15 +15,12 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
     status: false,
     message: ''
   })
-  const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
-    const userData = Object.fromEntries(formData.entries())
+    const userData = Object.fromEntries(formData.entries()) as CreateUser;
     const newUser = await createUser(userData)
-    if (newUser.error) {
-      setisError({status:true, message: newUser.message})
-    }
 
   }
 
@@ -44,7 +42,7 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
               <input 
                 className={styles.form_input}
                 type="text"
-                name='name'
+                name='user_name'
               />
             </label>
             <label className={styles.form_label}>
@@ -52,7 +50,7 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
               <input 
                 className={styles.form_input}
                 type="email"
-                name='email'
+                name='user_email'
               />
             </label>
             <label className={styles.form_label}>
@@ -60,7 +58,7 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
               <input 
                 className={styles.form_input}
                 type="password"
-                name='password'
+                name='user_password'
               />
               {
                 isError.status && <p>{isError.message}</p>
@@ -71,7 +69,7 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
               <input 
                 className={styles.form_input}
                 type="password"
-                name='password_repeat'
+                name='user_password_repeat'
               />
               {
                 isError.status && isError.message
