@@ -6,20 +6,22 @@ import User from "@/schemas/User"
 
 export async function GET() {
   connectDB()
-  const test = randomUUID()
   const user = await User.find()
   return NextResponse.json({
     message: 'hola desde users GET',
-    user,
-    test
+    user
   })
 }
 export async function POST(request: Request) {
   try {
+    connectDB()
     const data = await request.json()
+    // console.log({data})
     const newUser = new User(data)
     const savedUser = await newUser.save()
+    console.log({savedUser})
     return NextResponse.json(savedUser, newUser)    
+    // return NextResponse.json({message:'hola'})    
   } catch (error) {
     return NextResponse.json(error,{
       status: 400
