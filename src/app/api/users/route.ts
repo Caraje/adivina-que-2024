@@ -13,20 +13,8 @@ export async function GET() {
   })
 }
 export async function POST(request: Request) {
-  try {
-    connectDB()
-    const data = await request.json()
-
-    const newUser = new User(data)
-    const savedUser = await newUser.save()
-    console.log({savedUser})
-    return NextResponse.json(savedUser, newUser)       
-  } catch (error) {
-    return NextResponse.json(error,{
-      status: 400
-    })
-    
-  }
+  return new Response('hola desde users POST')
+  
 }
 export async function PATCH(req: Request) {
   return new Response('hola desde users PATCH')
