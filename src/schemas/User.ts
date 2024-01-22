@@ -59,28 +59,50 @@ const userSchema = new Schema({
   }, 
   user_name: {
     type: String, 
-    required: true, 
+    required: [true, 'userName is Required'], 
     unique: true,
     trim: true
   },
   user_email: {
     type: String, 
-    required: true, 
+    required: [true, 'Email is Required'], 
     unique: true,
     trim: true
   },
   user_password: {
     type: String, 
-    required: true,
+    required: [true, 'password is Required'],
     trim: true
   },
   user_avatar: {
     type: String, 
-    default: '',
+    default: '/AdivinaQue/akxmwc0cpoffp1avtg8h.webp',
     trim: true
   },
   user_networks: {
-    type: [NetworksSchema]
+    type: [NetworksSchema],
+    default: [
+      {
+        network_id: 1,
+        network_name: 'Twitter',
+        network_url: ''
+      },
+      {
+        network_id: 2,
+        network_name: 'instagram',
+        network_url: ''
+      },
+      {
+        network_id: 3,
+        network_name: 'Twitch',
+        network_url: ''
+      },
+      {
+        network_id: 4,
+        network_name: 'Youtube',
+        network_url: ''
+      },
+    ]
   },
   user_datagame: {
     type: UserGame,
