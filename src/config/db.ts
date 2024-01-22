@@ -1,6 +1,6 @@
 import mongoose, { connect, connection } from 'mongoose'
 
-
+const URL_BASE= process.env.MONGODB_URL || ''
 
 type conn = {
   isConnected: boolean | number
@@ -11,7 +11,7 @@ const conn: conn = {
 
 export async function connectDB() {
   if(conn.isConnected) return
-  const db = await connect(process.env.MONGODB_URL)
+  const db = await connect(URL_BASE)
   console.log(db.connection.db.databaseName)
   conn.isConnected = db.connections[0].readyState
 }
