@@ -1,6 +1,5 @@
 import { useModalStore } from "@/store/modal-store"
 import styles from '@/styles/modalLogin/RegisterForm.module.css'
-import { createUser } from "@/controllers/register";
 import { useState } from "react";
 import { CreateUser } from "@/types/types";
 
@@ -11,16 +10,34 @@ interface Props {
 }
 export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
   const { toggleModal } = useModalStore()
-  const [isError, setisError] = useState({
-    status: false,
-    message: ''
-  })
-  const handleForm = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  // const [isError, setisError] = useState({
+  //   status: false,
+  //   message: ''
+  // })
+  const [isError, setisError] = useState<number >(0)
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>)=> {
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
     const userData = Object.fromEntries(formData.entries()) as CreateUser;
-    const newUser = await createUser(userData)
+    try {
+      const response = await fetch(`/api/signup`, {
+        method:'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      })
+      const user = await response.json()
+      if(user.type !== 0) {
+        setisError(user.type)
+      }
+      console.log(user, isError)
+      
+    } catch (error) {
+      console.log('hola')
+      
+    }
 
   }
 
@@ -43,6 +60,8 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 className={styles.form_input}
                 type="text"
                 name='user_name'
+                placeholder="Nombre de Usuario"
+                autoComplete="off"
               />
             </label>
             <label className={styles.form_label}>
@@ -51,7 +70,9 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 className={styles.form_input}
                 type="email"
                 name='user_email'
-              />
+                placeholder="email@email.com"
+                autoComplete="off"
+                />
             </label>
             <label className={styles.form_label}>
               Password: 
@@ -59,10 +80,12 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 className={styles.form_input}
                 type="password"
                 name='user_password'
-              />
-              {
+                placeholder="Password"
+                autoComplete="off"
+                />
+              {/* {
                 isError.status && <p>{isError.message}</p>
-              }
+              } */}
             </label>
             <label className={styles.form_label}>
               Repite password: 
@@ -70,10 +93,12 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 className={styles.form_input}
                 type="password"
                 name='user_password_repeat'
-              />
-              {
+                placeholder="Repite el Password"
+                autoComplete="off"
+                />
+              {/* {
                 isError.status && isError.message
-              }
+              } */}
             </label>
             <button>Enviar</button>
           </form>
