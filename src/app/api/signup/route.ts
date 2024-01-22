@@ -9,32 +9,37 @@ export async function POST(request: Request) {
   try {
     // Comprobaciones
   if(!user_name) return NextResponse.json({
-    message: "Se debe introducir un nombre de usuario"
+    message: "Se debe introducir un nombre de usuario",
+    type: 1
   },{
     status: 400
   })
 
   if(!user_email) return NextResponse.json({
-    message: "Se debe introducir una dirección de correo"
+    message: "Se debe introducir una dirección de correo",
+    type: 2
   },{
     status: 400
   })
 
   if(!user_password || user_password.length < 6) return NextResponse.json({
-    message: "El password debe contener al menos 6 caracteres"
+    message: "El password debe contener al menos 6 caracteres",
+    type: 3
   },{
     status: 400
   })
   
   if(user_password !== user_password_repeat) return NextResponse.json({
-    message: "El password debe coincidir"
+    message: "El password debe coincidir",
+    type: 4
   },{
     status: 400
   })
-  connectDB()
+  await connectDB()
   const userFound = await User.findOne({user_email})
   if(userFound) return NextResponse.json({
-    message: 'El correo ya existe'
+    message: 'El correo ya existe',
+    type: 2
   }, {
     status: 400
   })
