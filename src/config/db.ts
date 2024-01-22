@@ -1,25 +1,20 @@
-import mongoose, { connect, connection } from 'mongoose'
+import mongoose from 'mongoose'
 
-const URL_BASE= process.env.MONGODB_URL || ''
-
-type conn = {
-  isConnected: boolean | number
+const URL_BASE= process.env.MONGODB_URI || ''
+if(URL_BASE === '') {
+  throw new Error('No esta definida la URL de Mongo')
 }
-const conn: conn = {
-  isConnected: false
+export const connectDB = async () => {
+  try {
+    const { connection} = await mongoose.connect(URL_BASE)
+    if(connection.readyState === 1){
+      console.log('MongoDB Connected');
+      return Promise.resolve(true)
+    }
+    
+  } catch (error) {
+    console.log(error)
+    return Promise.reject(false)
+  }
 }
 
-export async function connectDB() {
-  if(conn.isConnected) return
-  const db = await connect(URL_BASE)
-  console.log(db.connection.db.databaseName)
-  conn.isConnected = db.connections[0].readyState
-}
-
-connection.on('connected', () => {
-console.log('Se ha conectado con Mongoose')
-})
-
-connection.on('error', (err) => {
-  console.log('Hay un error en la conexion con Mongoonse: ', err)
-})
