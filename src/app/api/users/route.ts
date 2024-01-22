@@ -16,12 +16,11 @@ export async function POST(request: Request) {
   try {
     connectDB()
     const data = await request.json()
-    // console.log({data})
+
     const newUser = new User(data)
     const savedUser = await newUser.save()
     console.log({savedUser})
-    return NextResponse.json(savedUser, newUser)    
-    // return NextResponse.json({message:'hola'})    
+    return NextResponse.json(savedUser, newUser)       
   } catch (error) {
     return NextResponse.json(error,{
       status: 400
