@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/mongoose": "5.11.97",
     "@types/node": "20.10.5",
     "@types/react": "18",
