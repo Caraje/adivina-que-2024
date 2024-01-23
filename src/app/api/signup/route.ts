@@ -2,6 +2,7 @@ import User from '@/schemas/User'
 import {NextResponse} from 'next/server'
 import bcrypt from "bcryptjs";
 import { connectDB } from '@/config/db';
+import { randomUUID } from 'crypto'
 
 export async function POST(request: Request) {
 
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
 
   const hashedPass = await bcrypt.hash(user_password, 12)
   const user = new User({
+    user_id : randomUUID(),
     user_name, 
     user_email, 
     user_password: hashedPass,
