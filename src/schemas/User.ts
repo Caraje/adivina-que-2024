@@ -51,8 +51,7 @@ const UserGame = new Schema ({
 
 const userSchema = new Schema({
   user_id: {
-    type: 'UUID',
-    default: randomUUID(),
+    type: String,
     required: true, 
     unique: true,
     trim: true
