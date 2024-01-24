@@ -1,6 +1,6 @@
+import { URL_BASE } from '@/utils/env';
 import mongoose from 'mongoose'
 
-const URL_BASE= process.env.MONGODB_URI || ''
 if(URL_BASE === '') {
   throw new Error('No esta definida la URL de Mongo')
 }
