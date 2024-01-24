@@ -4,8 +4,9 @@ import NextAuth from "next-auth"
 import { connectDB } from "@/config/db";
 import User from "@/schemas/User";
 import bcrypt from 'bcryptjs';
-import { GITHUB_CLIENT, GITHUB_ID } from "@/utils/env";
 
+const GITHUB_ID:string = process.env.GITHUB_ID || ''
+const GITHUB_SECRET:string = process.env.GITHUB_SECRET || ''
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -25,7 +26,7 @@ const handler = NextAuth({
     }),
     GitHubProvider({
       clientId: GITHUB_ID,
-      clientSecret: GITHUB_CLIENT
+      clientSecret: GITHUB_SECRET
     })
   ],
   callbacks: {
