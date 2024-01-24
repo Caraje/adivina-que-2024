@@ -58,8 +58,8 @@ export type handleOpenLogin = () => void
 
 
 export type CreateUser = {
-  name: string, 
-  email: string, 
-  password: string, 
-  password_repeat: string
+  user_name: string, 
+  user_email: string, 
+  user_password: string, 
+  user_password_repeat: string
 }
