@@ -2,6 +2,7 @@
 import styles from '@/styles/catagories/GamePage.module.css'
 import {AsideSection} from './AsideSection'
 import { GameSection } from './GameSection'
+import { LevelGame } from '@/types/types'
 
 interface iCategories {
   movies: string, 
@@ -9,7 +10,8 @@ interface iCategories {
   videogames: string
 }
 interface Props {
-  cat: keyof iCategories
+  cat: keyof iCategories,
+  lvl: LevelGame[]
 }
 
 const CategoriesName = {
@@ -18,25 +20,11 @@ const CategoriesName = {
   videogames: 'Videojuegos'
 }
 
-const levelByCategory = async (cat) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/levels/${cat}`, )
-      if (response.ok) {
-        const {levelList} = await response.json()
-        return levelList
-      }
-    } catch (error) {
-      console.log(error)
-      return { error: 'Conection Error' }
-    }
-  }
+export const GamePage: React.FC<Props> = async ({cat, lvl}) => {
 
-export const GamePage: React.FC<Props> = async ({cat}) => {
-const levelList = await levelByCategory(cat)
-console.log({levelList})
   return (
     <div className={styles.container}>
-      <GameSection cat={cat}/>
+      <GameSection cat={cat} lvl={lvl}/>
       <AsideSection cat={CategoriesName[cat]}/>
     </div>
   )
