@@ -30,7 +30,10 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
     setNumLevel(numLevel +1)
     setLevelPosition(0)
   }
-
+  const newClues = [
+    {clue: ''},
+    ...level.level_clue
+  ]
   return (
     <section className={styles.container}>
       <CanvasGame 
@@ -40,7 +43,7 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
         isIncorrect={isIncorrect}
       />       
       <PositionLevel 
-        clues={level.level_clue} 
+        clues={newClues} 
         isCorrect={isCorrect}
         isIncorrect={isIncorrect}
         levelPosition={levelPosition}
@@ -57,7 +60,7 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
           <h2 className={styles.title_clues}>Pistas:</h2>
           <ClueGame
             levelPosition={levelPosition}
-            clues={level.level_clue}
+            clues={newClues}
           />
         </section>
       }
