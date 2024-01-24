@@ -7,29 +7,30 @@ import { PositionLevel } from './PositionLevel'
 import { useState } from 'react'
 import { FormGame } from './FormGame'
 import { ClueGame } from './ClueGame'
+import { LevelGame } from '@/types/types'
 
 interface Props {
-  cat: string
+  cat: string,
+  lvl: LevelGame[]
 }
 
-
-
-export const GameSection: React.FC<Props> = ({cat}) => {
-
-
-  
+export const GameSection: React.FC<Props> = ({cat, lvl}) => {
   const [levelPosition, setLevelPosition] = useState(0)
-  const level = exampleLevelsList[1]
+  const [numLevel, setNumLevel] = useState(0)
+  const level = lvl[numLevel]
   const image = level.level_images[levelPosition].img
   const isCorrect = false
   const isIncorrect = false
-
-  console.log({cat})
 
   const handleNextClue = () => {
     if (levelPosition === 4 )  return
     setLevelPosition(levelPosition + 1)
   }
+  const handleNextLevel = () => {
+    setNumLevel(numLevel +1)
+    setLevelPosition(0)
+  }
+
   return (
     <section className={styles.container}>
       <CanvasGame 
@@ -49,6 +50,7 @@ export const GameSection: React.FC<Props> = ({cat}) => {
         isIncorrect={isIncorrect}
         handleNextClue={handleNextClue}
       />
+      <button onClick={handleNextLevel}>Next</button>
       {
         levelPosition >= 1 &&
         <section className={styles.container_clues}>
