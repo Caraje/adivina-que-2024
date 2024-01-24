@@ -12,7 +12,7 @@ const lvlImages = new Schema({
 const lvlClue = new Schema({
   clue: {
   type: String, 
-  required: [true, 'Se necesita una pista para el nivel, la primera debe ser vacia'],
+  required: [true, 'Se necesita 4 pistas para el nivel'],
   trim: true
   }
 })
@@ -48,7 +48,6 @@ const levelSchema = new Schema({
   }, 
   level_clue: {
     type: [lvlClue],
-    required: [true,'Se encesitan 5 pistas en total (primera vacia)'],
     trim: true
   }
 })
