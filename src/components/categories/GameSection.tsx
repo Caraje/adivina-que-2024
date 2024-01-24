@@ -7,12 +7,24 @@ import { PositionLevel } from './PositionLevel'
 import { useState } from 'react'
 import { FormGame } from './FormGame'
 import { ClueGame } from './ClueGame'
-export const GameSection = () => {
+
+interface Props {
+  cat: string
+}
+
+
+
+export const GameSection: React.FC<Props> = ({cat}) => {
+
+
+  
   const [levelPosition, setLevelPosition] = useState(0)
   const level = exampleLevelsList[1]
   const image = level.level_images[levelPosition].img
   const isCorrect = false
   const isIncorrect = false
+
+  console.log({cat})
 
   const handleNextClue = () => {
     if (levelPosition === 4 )  return
