@@ -2,6 +2,7 @@ import { useModalStore } from "@/store/modal-store"
 import styles from '@/styles/modalLogin/RegisterForm.module.css'
 import { useState } from "react";
 import { CreateUser } from "@/types/types";
+import { signIn } from "next-auth/react";
 
 
 
@@ -29,11 +30,15 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
         body: JSON.stringify(userData)
       })
       const user = await response.json()
+
       if(user.type !== 0) {
         setisError(user.type)
       }
-      console.log(user, isError)
-      
+      const res = await signIn('credentials', {
+        email: user.user_email,
+        password: userData.user_password
+      })
+      console.log(user, isError, {res})
     } catch (error) {
       console.log('hola')
       
