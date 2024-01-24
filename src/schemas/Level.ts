@@ -18,9 +18,8 @@ const lvlClue = new Schema({
 })
 const levelSchema = new Schema({
   level_id: {
-    type: 'UUID',
-    default: randomUUID(),
-    required: true,
+    type: String,
+    required: true, 
     unique: true,
     trim: true
   },
@@ -48,6 +47,10 @@ const levelSchema = new Schema({
     trim: true
   }, 
   level_clue: {
-
+    type: [lvlClue],
+    required: [true,'Se encesitan 5 pistas en total (primera vacia)'],
+    trim: true
   }
 })
+
+export default models.Level || model('Level', levelSchema)
