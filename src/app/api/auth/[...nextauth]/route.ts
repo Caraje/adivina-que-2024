@@ -1,8 +1,10 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import NextAuth from "next-auth"
 import { connectDB } from "@/config/db";
 import User from "@/schemas/User";
 import bcrypt from 'bcryptjs';
+import { GITHUB_CLIENT, GITHUB_ID } from "@/utils/env";
 
 const handler = NextAuth({
   providers: [
@@ -10,16 +12,20 @@ const handler = NextAuth({
       name: 'credentials',
       credentials: {
         email: { label: "user_email", type: "text", placeholder: "jsmith" },
-        user_password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
         await connectDB()
         const userFound = await User.findOne({user_email: credentials?.email})
         if(!userFound) throw new Error('Invalid Credentials')
-        const passMatch = await bcrypt.compare(credentials!.user_password, userFound.user_password)
+        const passMatch = await bcrypt.compare(credentials!.password, userFound.user_password)
         if(!passMatch) throw new Error('invalid Credentials')
         return userFound
       },
+    }),
+    GitHubProvider({
+      clientId: GITHUB_ID,
+      clientSecret: GITHUB_CLIENT
     })
   ],
   callbacks: {
@@ -29,7 +35,7 @@ const handler = NextAuth({
     },
     session({session, token, user}) {
       session.user = token.user as any;
-      console.log({session, token, user})
+      // console.log({session, token, user})
       return session
     }
   }
