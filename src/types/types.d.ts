@@ -23,19 +23,19 @@ export type User = {
   user_datagame: {
     movies: {
       level_id: string, 
-      level_correct: boolen, 
+      level_correct: boolean, 
       level_errors: number, 
       level_points: number, 
     }[],
     series: {
       level_id: string, 
-      level_correct: boolen, 
+      level_correct: boolean, 
       level_errors: number, 
       level_points: number, 
     }[],
     videogames: {
       level_id: string, 
-      level_correct: boolen, 
+      level_correct: boolean, 
       level_errors: number, 
       level_points: number, 
     }[]
