@@ -14,7 +14,7 @@ export const UserButton = () => {
   const handleLogout = async () => {
     signOut()
   }
-  console.log({data, status})
+  // console.log({data, status})
   return (
     <section className={styles.user_menu}>
     {/* TODO: Crear botones para ir a registro/login y boton para abrir menu de usuario */}
