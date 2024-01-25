@@ -21,7 +21,8 @@ const handler = NextAuth({
         if(!userFound) throw new Error('Invalid Credentials')
         const passMatch = await bcrypt.compare(credentials!.password, userFound.user_password)
         if(!passMatch) throw new Error('invalid Credentials')
-        return userFound
+        const { user_password, ...cleanUser } = userFound.toObject()
+        return cleanUser
       },
     }),
     GitHubProvider({
