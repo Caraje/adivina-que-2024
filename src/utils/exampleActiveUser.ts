@@ -31,19 +31,19 @@ export const exampleUser: User ={
   user_datagame: {
     movies: [
       {
-        level_id: '1',
+        level_id: 'da9fdcd9-2a48-4d13-9d21-f0a4dcc1b813',
         level_correct: true, 
         level_errors: 2,
         level_points: 3
       },
       {
-        level_id: '2',
+        level_id: 'e7a37ace-15da-4ad2-ba46-f1a06a6e07ba',
         level_correct: false, 
         level_errors: 5,
         level_points: 0
       },
       {
-        level_id: '3',
+        level_id: 'f79baa81-7024-4977-9c8d-f277d6d13213',
         level_correct: true, 
         level_errors: 3,
         level_points: 2
