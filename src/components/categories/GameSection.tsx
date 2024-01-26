@@ -15,14 +15,21 @@ interface Props {
   lvl: LevelGame[]
 }
 
+const points = {
+  0: 5,
+  1: 4,
+  2: 3,
+  3: 2,
+  4: 1
+}
+
 export const GameSection: React.FC<Props> = ({cat, lvl}) => {
   const { data, status } = useSession()
-  const [isCorrect, setisCorrect] = useState<'correct'| 'incorrect' | 'pending'>('pending')
+  const [isCorrect, setIsCorrect] = useState<'correct'| 'incorrect' | 'pending'>('pending')
   const [lvlPosition, setLvlPosition] = useState<number>(0)
   const [level, setLevel] = useState<number>(0)
   const [formAnswer, setFormAnswer] = useState<string>('')
-  
-  
+
   // EStado pendiente
   if(status === 'loading') {
     return <div>cargando...</div>
@@ -54,35 +61,44 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
       if(level+2 > levelsListAvaliables.length) return
       setLevel(level + 1)
       setLvlPosition(0)
+      setIsCorrect('pending')
+      setFormAnswer('')
     }
 
     const handleForm = (e:React.FormEvent<HTMLFormElement>): void => {
       e.preventDefault()
 
-          // Si es correcta la respuesta
-    /*
-      Si la respuesta es correcta, debe sumar el numero de puntos acorde al numero de oportunidades disponible (1er intento, 5p, 2º 4p, 3º 3p, 4º 2p, 5º 1p, fallo 0p)
-      Acertar la respuesta, debe hacer desaparecer el formulario y que aparezca el boton
-      de siguiente nivel.
-      Tambien sobre la imagen debe aparecer un banner de respuesta correcta
-      Ademas del banner, debe cambiar la imagen a la imagen de respuesta correcta.
-      Con la puntuacion restante, debe sumarse a la puntuacion general en la categoria del jugador.
-      Tambien debe sumarse el numero de errores en caso de haberlos
-      sumar 1 al dato de niveles superados
-      Sumar la id del nivel a la lista de niveles completados del usuario en la categoria.
-    */
-    // Si es erronea la respuesta
-    /*
-      Em caso de respuesta erronea, debe pasar automaticamente a la siguiente pista, y restar 1 a la cantidad de puntos disponibles hasta que ya no queden
-      Despues de 5 intentos o respuestas fallidas, el nivel se da como erroneo y en ese caso: 
-      debe desaparecer el formulario de respuestas y aparecer en su lugar un boton para el siguiente nivel.
-      sumar el numero de errores al jugador 
-      añadir el id del nivel a la lista de niveles completados del jugador.
+      const lvlCorrectAnswers = levelsListAvaliables[level].level_answers
+      function normalizeString(str: string) {
+        return str.toLowerCase().replace(/[^\w\s]/gi, '');
+      }
+      const isAnswerCorrect = lvlCorrectAnswers.some(
+        str => normalizeString(str) === normalizeString(formAnswer).trim()
+      )
+      // RESPUESTA ERRONEA
+      if(!isAnswerCorrect) {
+        // Comprueba que aun quedan pistas disponibles (no ha llegado a 5 pistas)
+        const p = lvlPosition === 0 ? 4 : lvlPosition === 1 ? 3 :lvlPosition === 2 ? 2 : 1
+        console.log({lvlPosition, p})
+        if (lvlPosition < 4 ) {
+          handleNextClue()
+          setFormAnswer('')
+          return
+        }
+        // Tras 5 pistas, la resuelve como incorrecta
+        const points = 0
+        setIsCorrect('incorrect')
 
+        return
+      }
 
-    */
+      // RESPUESTA CORRECTA
+      // Resuelve el nivel como correcto
+      setIsCorrect('correct')
+      // Resetea el formulario
+      setFormAnswer('')
+      const points = 5
     }
-
     return (
 
       <section className={styles.container}>
@@ -91,8 +107,6 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
           imageCorrect={levelsListAvaliables[level].image_correct}
           isCorrect={isCorrect} 
         />  
-        <button onClick={handleNextClue}>Siguiente</button> 
-        <button onClick={handleNextLevel}>Siguiente Nivel</button> 
 
         <PositionLevel 
           clues={totalClues} 
@@ -100,7 +114,7 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
           levelPosition={lvlPosition}
         />
         {
-          isCorrect === 'pending' && (
+          isCorrect === 'pending' ? (
             <FormGame 
             isCorrect={isCorrect}
             handleNextClue={handleNextClue}
@@ -109,6 +123,7 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
             handleForm={handleForm}
           />
           )
+          : <button onClick={handleNextLevel}>Siguiente Nivel</button>
         }
         {
           lvlPosition !== 0 && (
