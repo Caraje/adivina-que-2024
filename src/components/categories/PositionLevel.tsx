@@ -2,11 +2,10 @@ import styles from '@/styles/catagories/PositionLevel.module.css'
 
 interface Props {
   clues: {clue: string | null}[]
-  isCorrect: boolean,
-  isIncorrect: boolean, 
+  isCorrect: 'correct'| 'incorrect' | 'pending',
   levelPosition: number
 }
-export const PositionLevel: React.FC<Props> = ({ clues, isCorrect, isIncorrect, levelPosition }) => {  
+export const PositionLevel: React.FC<Props> = ({ clues, isCorrect, levelPosition }) => {  
   return (
     <section className={styles.container}>
     {
@@ -14,8 +13,8 @@ export const PositionLevel: React.FC<Props> = ({ clues, isCorrect, isIncorrect, 
         <button 
           key={idx}
           className={
-            isCorrect && levelPosition === idx ? styles.button_correct
-              : isIncorrect && levelPosition === idx ? styles.button_error
+            isCorrect === 'correct' && levelPosition === idx ? styles.button_correct
+              : isCorrect === 'incorrect' && levelPosition === idx ? styles.button_error
               : levelPosition === idx ? styles.button_actual 
               : levelPosition > idx ? styles.button_error
               : styles.button
