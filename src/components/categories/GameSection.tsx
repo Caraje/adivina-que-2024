@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { FormGame } from './FormGame'
 import { ClueGame } from './ClueGame'
 import { LevelGame } from '@/types/types'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   cat: string,
@@ -15,18 +16,27 @@ interface Props {
 }
 
 export const GameSection: React.FC<Props> = ({cat, lvl}) => {
+  const { data } = useSession()
+  const user: any = data?.user;
+  const userLevelsList = user.user_datagame.movies || []
+  const levelsAbaliables = lvl.filter(lvl => !userLevelsList.some((e: { level_id: string }) => e.level_id === lvl.level_id))
+
   const [levelPosition, setLevelPosition] = useState(0)
   const [numLevel, setNumLevel] = useState<number>(0)
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
   const [isIncorrect, setIsIncorrect] = useState<boolean>(false)
   const [lvlAnswer, setLvlAnswer] = useState<string>('')
-  const level = lvl[numLevel]
+  const [userPoints, setUserPoints] = useState<number>(5)
+  const level = levelsAbaliables[numLevel]
   const image = level.level_images[levelPosition].img
   const newClues = [
     {clue: ''},
     ...level.level_clue
   ]
 
+
+
+  console.log({userLevelsList, levelsAbaliables})
   const handleNextClue = () => {
     if (levelPosition === 4 )  return
     setLevelPosition(levelPosition + 1)
