@@ -1,17 +1,16 @@
 import styles from '@/styles/catagories/CanvasGame.module.css'
 
 interface Props {
-  image: string,
-  imageCorrect: string,
-  isCorrect: boolean,
-  isIncorrect: boolean
+  image?: string,
+  imageCorrect?: string,
+  isCorrect: 'correct'| 'incorrect' | 'pending',
 }
 
-export const CanvasGame: React.FC<Props> = ({image, imageCorrect, isCorrect, isIncorrect}) => {
+export const CanvasGame: React.FC<Props> = ({image, imageCorrect, isCorrect}) => {
   return (
     <section className={styles.canvas}>
         {
-          isCorrect || isIncorrect
+          (isCorrect === 'correct' || isCorrect === 'incorrect')
             ? <img 
               src={imageCorrect} 
               alt='Imagen de la respuesta correcta' 
@@ -26,12 +25,12 @@ export const CanvasGame: React.FC<Props> = ({image, imageCorrect, isCorrect, isI
             />
         }
         {
-          isIncorrect 
+          isCorrect === 'incorrect' 
             && <div
             className={styles.answer_banner_incorrect}>Incorrecto</div>
         }
         {
-          isCorrect 
+          isCorrect === 'correct' 
             && <div
             className={styles.answer_banner_correct}>Respuesta correcta</div>
         }
