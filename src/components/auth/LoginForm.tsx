@@ -62,7 +62,7 @@ export const LoginForm: React.FC<Props> = ({ toRegister }) => {
             </label>
           <button>Enviar</button>
           </form>
-          <button onClick={() => signIn("github")}>Sign in with Github</button>
+          {/* <button onClick={() => signIn("github")}>Sign in with Github</button> */}
         </header>
 
         <div className={styles.footer}>
