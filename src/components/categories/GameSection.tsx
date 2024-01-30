@@ -9,6 +9,7 @@ import { ClueGame } from './ClueGame'
 import { LevelGame, User } from '@/types/types'
 import { useSession } from 'next-auth/react'
 import { UserCard } from './UserCard';
+import { useUserStore } from '@/store/modal-store'
 
 interface Props {
   cat: string,
@@ -24,12 +25,11 @@ const points = {
 }
 
 export const GameSection: React.FC<Props> = ({cat, lvl}) => {
-  const { data, status } = useSession()
+  const { data, status, update } = useSession()
   const [isCorrect, setIsCorrect] = useState<'correct'| 'incorrect' | 'pending'>('pending')
   const [lvlPosition, setLvlPosition] = useState<number>(0)
   const [level, setLevel] = useState<number>(0)
   const [formAnswer, setFormAnswer] = useState<string>('')
-
   // EStado pendiente
   if(status === 'loading') {
     return <div>cargando...</div>
@@ -52,17 +52,54 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
       {clue: ''},
       ...levelsListAvaliables[level].level_clue
     ]
+
+    const updateUser = async (updatedData:any) => {
+      try {
+        const response = await fetch(`/api/users/${user.user_id}`, {
+          method:'PUT',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(updatedData)
+        })
+        const {userUpdated} = await response.json()
+        update({user: userUpdated})
+        console.log(userUpdated)
+      } catch (error) {
+        console.log('hola')
+        
+      }
+    }
     const handleNextClue = () => {
       if (lvlPosition === 4 )  return
       setLvlPosition(lvlPosition + 1)
     }
 
     const handleNextLevel = () => {
+      // Se puede hacer aqui la comprobacion del numero de errores o si es correcto, para que se lance y actualice el usuario en el momento en que pase al siguiente nivel, SOLO si ha intentado el nivel
       if(level+2 > levelsListAvaliables.length) return
-      setLevel(level + 1)
+      // setLevel(level + 1)
       setLvlPosition(0)
       setIsCorrect('pending')
       setFormAnswer('')
+      const p = lvlPosition === 0 ? 5 
+      : lvlPosition === 1 ? 4 
+      : lvlPosition === 2 ? 3 
+      : lvlPosition === 3 ? 2 
+      : lvlPosition === 3 ? 1 
+      : 0
+      const levelPoints = {
+        level_correct: p === 0 ? false : true,
+        level_errors: lvlPosition + 1,
+        level_id: levelsListAvaliables[level].level_id,
+        level_points: p
+      }
+      user.user_datagame.movies.push(levelPoints)
+      console.log({p,levelPoints, user}, levelsListAvaliables[level].level_id)
+      updateUser(user)
+
+
+
     }
 
     const handleForm = (e:React.FormEvent<HTMLFormElement>): void => {
@@ -78,26 +115,21 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
       // RESPUESTA ERRONEA
       if(!isAnswerCorrect) {
         // Comprueba que aun quedan pistas disponibles (no ha llegado a 5 pistas)
-        const p = lvlPosition === 0 ? 4 : lvlPosition === 1 ? 3 :lvlPosition === 2 ? 2 : 1
-        console.log({lvlPosition, p})
         if (lvlPosition < 4 ) {
           handleNextClue()
           setFormAnswer('')
+          
           return
         }
         // Tras 5 pistas, la resuelve como incorrecta
-        const points = 0
         setIsCorrect('incorrect')
 
         return
       }
 
-      // RESPUESTA CORRECTA
-      // Resuelve el nivel como correcto
+      // RESPUESTA CORRECTA 
       setIsCorrect('correct')
-      // Resetea el formulario
       setFormAnswer('')
-      const points = 5
     }
     return (
 
