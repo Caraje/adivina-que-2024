@@ -33,8 +33,24 @@ export async function POST(request: Request) {
 
   })
 }
-export async function PATCH(req: Request) {
-  return new Response('hola desde levels PATCH')
+export async function PUT(req: Request, { params }: Params) {
+  const user = await req.json()
+  const {id} = params
+  
+  try {
+    // await connectDB()
+    const userUpdated = await User.findOneAndUpdate({user_id: id}, user)
+    return NextResponse.json({
+      message: 'Usuario actualizado',
+      userUpdated
+    })
+  } catch (error) {
+    
+  }
+  return NextResponse.json({
+    message: 'se actualiza los datos del usuario',
+    id
+  })
 }
 export async function DELETE(req: Request) {
   return new Response('hola desde levels DELETE')
