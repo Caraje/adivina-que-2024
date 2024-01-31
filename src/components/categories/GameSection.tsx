@@ -24,7 +24,6 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
   const user: any = data?.user
   const userId = user?.user_id;
   const userData = useUserData(userId);
-  // const userData =  useUserData(data?.user.user_id)
   const [isCorrect, setIsCorrect] = useState<'correct'| 'incorrect' | 'pending'>('pending')
   const [lvlPosition, setLvlPosition] = useState<number>(0)
   const [level, setLevel] = useState<number>(0)
