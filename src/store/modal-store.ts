@@ -1,3 +1,4 @@
+import { User } from '@/types/types';
 import {create} from 'zustand';
 
 interface ModalState {
@@ -19,3 +20,15 @@ export const useModalStore = create<ModalStore>((set) => ({
   closeModal: () => set({ isModalOpen: false }),
   toggleModal: () => set((state) => ({ isModalOpen: !state.isModalOpen })),
 }));
+
+
+interface UserState {
+  user: User | null;
+  setUser: (user: UserState['user']) => void
+  logout: () => void
+}
+export const useUserStore = create<UserState>((set) =>  ({
+  user: null,
+  setUser: (loggedUser) => set({ user: loggedUser }),
+  logout: () => set({ user: null })
+}))
