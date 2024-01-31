@@ -13,11 +13,11 @@ export const UserCard: React.FC<Props> = ({cat}) => {
   const userData: any = data?.user
   const userId = userData?.user_id;
   const user: any = useUserData(userId);
-  const categoryFilter = cat === 'movies' ? user.user_datagame.movies 
-    : cat === 'series' ? user.user_datagame.series
-    : user.user_datagame.videogames
-    const errorFilter = categoryFilter.filter((er:any) => !er.level_correct ) || []
-    const sucessFilter = categoryFilter.filter((er:any) => er.level_correct ) || []
+  const categoryFilter = cat === 'movies' ? user?.user_datagame.movies 
+    : cat === 'series' ? user?.user_datagame.series
+    : user?.user_datagame.videogames
+    const errorFilter = categoryFilter?.filter((er:any) => !er.level_correct ) || []
+    const sucessFilter = categoryFilter?.filter((er:any) => er.level_correct ) || []
     let totalPoints = 0
     for (let i = 0; i < sucessFilter?.length; i++) { 
       totalPoints += sucessFilter[i].level_points
