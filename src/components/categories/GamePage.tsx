@@ -21,11 +21,12 @@ const CategoriesName = {
 }
 
 export const GamePage: React.FC<Props> = async ({cat, lvl}) => {
-
+  console.log({cat})
+  
   return (
     <div className={styles.container}>
       <GameSection cat={cat} lvl={lvl}/>
-      <AsideSection cat={CategoriesName[cat]}/>
+      <AsideSection cat={cat}/>
     </div>
   )
 }
