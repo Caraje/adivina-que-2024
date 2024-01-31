@@ -6,46 +6,43 @@ import { PositionLevel } from './PositionLevel'
 import { useState } from 'react'
 import { FormGame } from './FormGame'
 import { ClueGame } from './ClueGame'
-import { LevelGame, User } from '@/types/types'
+import { LevelGame } from '@/types/types'
 import { useSession } from 'next-auth/react'
-import { UserCard } from './UserCard';
-import { useUserStore } from '@/store/modal-store'
+import useUserData from '@/hooks/user'
+
+
 
 interface Props {
   cat: string,
   lvl: LevelGame[]
 }
 
-const points = {
-  0: 5,
-  1: 4,
-  2: 3,
-  3: 2,
-  4: 1
-}
 
 export const GameSection: React.FC<Props> = ({cat, lvl}) => {
-  const { data, status, update } = useSession()
+  
+  const { data, status, update } = useSession();
+  const user: any = data?.user
+  const userId = user?.user_id;
+  const userData = useUserData(userId);
+  // const userData =  useUserData(data?.user.user_id)
   const [isCorrect, setIsCorrect] = useState<'correct'| 'incorrect' | 'pending'>('pending')
   const [lvlPosition, setLvlPosition] = useState<number>(0)
   const [level, setLevel] = useState<number>(0)
   const [formAnswer, setFormAnswer] = useState<string>('')
+  
   // EStado pendiente
   if(status === 'loading') {
     return <div>cargando...</div>
   }
-  
   // EStado usuario logueado
   if(status === 'authenticated' && data?.user) {
-    const user: any = data.user
+    const user: any = userData
     const catLevels = 
-    cat === 'movies' ? user.user_datagame?.movies 
-    : cat === 'series' ? user.user_datagame?.series 
-    : user.user_datagame?.videogames
+    cat === 'movies' ? user?.user_datagame?.movies 
+    : cat === 'series' ? user?.user_datagame?.series 
+    : user?.user_datagame?.videogames
     
-    const levelsListAvaliables = lvl
-    .filter(lvl => !catLevels
-      .some((userLvl:any) => userLvl.level_id === lvl.level_id)
+    const levelsListAvaliables = lvl?.filter(lvl => !catLevels?.some((userLvl:any) => userLvl.level_id === lvl.level_id)
       )
     
     const totalClues = [
@@ -63,30 +60,27 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
           body: JSON.stringify(updatedData)
         })
         const {userUpdated} = await response.json()
-        update({user: userUpdated})
-        console.log(userUpdated)
+        update({ user: userUpdated })
+        // console.log(userUpdated)
       } catch (error) {
-        console.log('hola')
+        console.log(error)
         
       }
     }
-    const handleNextClue = () => {
+    const handleNextClue = async () => {
       if (lvlPosition === 4 )  return
+
       setLvlPosition(lvlPosition + 1)
     }
 
     const handleNextLevel = () => {
-      // Se puede hacer aqui la comprobacion del numero de errores o si es correcto, para que se lance y actualice el usuario en el momento en que pase al siguiente nivel, SOLO si ha intentado el nivel
-      if(level+2 > levelsListAvaliables.length) return
-      // setLevel(level + 1)
-      setLvlPosition(0)
-      setIsCorrect('pending')
-      setFormAnswer('')
+      // if(level+2 > levelsListAvaliables.length) return
+      if (level + 2 >= levelsListAvaliables.length) return
       const p = lvlPosition === 0 ? 5 
       : lvlPosition === 1 ? 4 
       : lvlPosition === 2 ? 3 
       : lvlPosition === 3 ? 2 
-      : lvlPosition === 3 ? 1 
+      : lvlPosition === 4 ? 1 
       : 0
       const levelPoints = {
         level_correct: p === 0 ? false : true,
@@ -94,12 +88,13 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
         level_id: levelsListAvaliables[level].level_id,
         level_points: p
       }
-      user.user_datagame.movies.push(levelPoints)
-      console.log({p,levelPoints, user}, levelsListAvaliables[level].level_id)
-      updateUser(user)
-
-
-
+      cat === 'movies' ? user.user_datagame.movies.push(levelPoints) 
+        : cat === 'series' ? user.user_datagame.series.push(levelPoints)
+        : user.user_datagame.videogames.push(levelPoints)
+      updateUser(userData)
+      setLvlPosition(0)
+      setIsCorrect('pending')
+      setFormAnswer('')
     }
 
     const handleForm = (e:React.FormEvent<HTMLFormElement>): void => {
