@@ -10,6 +10,7 @@ import Link from 'next/link'
 export const UserButton = () => {
   const { toggleModal } = useModalStore()
   const { data, status } = useSession()
+  const user:any = data?.user
   
   const handleLogout = async () => {
     signOut()
@@ -18,12 +19,21 @@ export const UserButton = () => {
   return (
     <section className={styles.user_menu}>
     {/* TODO: Crear botones para ir a registro/login y boton para abrir menu de usuario */}
-    <button 
-      onClick={toggleModal}
-      className={styles.btn_user}
-    >
-      Login/Register <IconUser size={30} />
-    </button> 
+    {
+      status === 'authenticated' ?
+        <Link href={`/user/${user.user_id}`}>
+          <img src={user.user_avatar} alt='imagen de usuario' width={50} height={50}/>
+          {user.user_name}
+        </Link>
+        : (
+        <button 
+          onClick={toggleModal}
+          className={styles.btn_user}
+        >
+          Login/Register <IconUser size={30} />
+        </button>) 
+    }
+    
     {/* {
       (status === "authenticated") 
         ? <Link href='/api/auth/signout'>signout</Link>
