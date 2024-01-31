@@ -7,13 +7,21 @@ interface Props {
   list: RankList[],
   isGame: boolean
 }
+interface CategoriesName {
+  [key: string]: string;
+}
+const CategoriesName: CategoriesName = {
+  movies: 'Cine', 
+  series: 'Series', 
+  videogames: 'Videojuegos'
+}
 
 export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
 
   const stylesComponent= isGame ? stylesGame : styles
   return (
     <article className={stylesComponent.card}>
-      <h3 className={stylesComponent.card_title}>{cat}</h3>
+      <h3 className={stylesComponent.card_title}>{CategoriesName[cat]}</h3>
         <ol className={stylesComponent.rank_list}>
           {
             list.map(user => (
