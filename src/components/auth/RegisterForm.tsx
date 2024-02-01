@@ -3,6 +3,7 @@ import styles from '@/styles/modalLogin/RegisterForm.module.css'
 import { useState } from "react";
 import { CreateUser } from "@/types/types";
 import { signIn } from "next-auth/react";
+import { registerNewUser } from "@/controllers/users";
 
 
 
@@ -11,10 +12,6 @@ interface Props {
 }
 export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
   const { toggleModal } = useModalStore()
-  // const [isError, setisError] = useState({
-  //   status: false,
-  //   message: ''
-  // })
   const [isError, setisError] = useState<number >(0)
   const handleForm = async (event: React.FormEvent<HTMLFormElement>)=> {
     event.preventDefault()
@@ -22,25 +19,17 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
     const formData = new FormData(form)
     const userData = Object.fromEntries(formData.entries()) as CreateUser;
     try {
-      const response = await fetch(`/api/signup`, {
-        method:'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      })
-      const user = await response.json()
+      const user  = await registerNewUser(userData)
 
       if(user.type !== 0) {
         setisError(user.type)
       }
-      const res = await signIn('credentials', {
+      await signIn('credentials', {
         email: user.user_email,
         password: userData.user_password
       })
-      console.log(user, isError, {res})
     } catch (error) {
-      console.log('hola')
+      console.log(error)
       
     }
 
@@ -121,7 +110,7 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
       </section>
       <picture className={styles.picture_container}>
         <img 
-          src="./static_img/register.webp"
+          src="/static_img/register.webp"
           alt="Imagen de Ahsoka Tano para la pantalla de login"
           width={600}
           height={800}
