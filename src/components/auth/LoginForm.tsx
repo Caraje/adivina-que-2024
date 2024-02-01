@@ -22,7 +22,7 @@ export const LoginForm: React.FC<Props> = ({ toRegister }) => {
     <section className={styles.container}>
       <picture className={styles.picture_container}>
         <img 
-          src="./static_img/login.webp"
+          src="/static_img/login.webp"
           alt="Imagen de Ahsoka Tano para la pantalla de login"
           width={600}
           height={800}
