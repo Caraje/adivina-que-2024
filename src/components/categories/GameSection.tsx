@@ -9,6 +9,7 @@ import { ClueGame } from './ClueGame'
 import { LevelGame } from '@/types/types'
 import { useSession } from 'next-auth/react'
 import useUserData from '@/hooks/user'
+import { UpdateUserById } from '@/controllers/users'
 
 
 
@@ -49,30 +50,13 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
       ...levelsListAvaliables[level].level_clue
     ]
 
-    const updateUser = async (updatedData:any) => {
-      try {
-        const response = await fetch(`/api/users/${user.user_id}`, {
-          method:'PUT',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify(updatedData)
-        })
-        const {userUpdated} = await response.json()
-        update({ user: userUpdated })
-        // console.log(userUpdated)
-      } catch (error) {
-        console.log(error)
-        
-      }
-    }
     const handleNextClue = async () => {
       if (lvlPosition === 4 )  return
 
       setLvlPosition(lvlPosition + 1)
     }
 
-    const handleNextLevel = () => {
+    const handleNextLevel = async () => {
       // if(level+2 > levelsListAvaliables.length) return
       if (level + 2 >= levelsListAvaliables.length) return
       const p = lvlPosition === 0 ? 5 
@@ -90,7 +74,8 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
       cat === 'movies' ? user.user_datagame.movies.push(levelPoints) 
         : cat === 'series' ? user.user_datagame.series.push(levelPoints)
         : user.user_datagame.videogames.push(levelPoints)
-      updateUser(userData)
+      // updateUser(userData)
+      await UpdateUserById(user.user_id, userData)
       setLvlPosition(0)
       setIsCorrect('pending')
       setFormAnswer('')
