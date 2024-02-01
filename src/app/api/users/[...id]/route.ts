@@ -12,7 +12,6 @@ export async function GET(req: Request, { params }: Params) {
     await connectDB()
     const foundUser = await User.findOne({user_id: id} )
     const { user_password, ...cleanUser } = foundUser.toObject()
-    console.log(foundUser)
     return NextResponse.json({
       message: "Recuperar usuarios con el ID",
       // foundUser,
