@@ -14,15 +14,9 @@ interface Props {
   lvl: LevelGame[]
 }
 
-const CategoriesName = {
-  movies: 'Cine', 
-  series: 'Series', 
-  videogames: 'Videojuegos'
-}
 
 export const GamePage: React.FC<Props> = async ({cat, lvl}) => {
-  console.log({cat})
-  
+
   return (
     <div className={styles.container}>
       <GameSection cat={cat} lvl={lvl}/>
