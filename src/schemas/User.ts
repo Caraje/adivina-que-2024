@@ -75,7 +75,7 @@ const userSchema = new Schema({
   },
   user_avatar: {
     type: String, 
-    default: '/AdivinaQue/akxmwc0cpoffp1avtg8h.webp',
+    default: 'https://res.cloudinary.com/caraje/image/upload/v1682092834/AdivinaQue/akxmwc0cpoffp1avtg8h.webp',
     trim: true
   },
   user_networks: {
