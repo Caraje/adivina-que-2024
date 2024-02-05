@@ -1,6 +1,6 @@
 'use client'
 import styles from '@/styles/layout/UserButton.module.css'
-import { IconUser } from '../Icons'
+import { IconLogout, IconUser } from '../Icons'
 import { useModalStore } from '@/store/modal-store'
 import { useSession } from 'next-auth/react'
 import { signOut } from "next-auth/react"
@@ -20,7 +20,10 @@ export const UserButton = () => {
     {/* TODO: Crear botones para ir a registro/login y boton para abrir menu de usuario */}
     {
       status === 'authenticated' ?
-        <Link href={`/user/${user.user_id}`}>
+        <Link 
+          href={`/user/${user.user_id}`}
+          className={styles.btn_user}
+          >
           <img src={user.user_avatar} alt='imagen de usuario' width={50} height={50}/>
           {user.user_name}
         </Link>
@@ -43,8 +46,9 @@ export const UserButton = () => {
         (
         <button
           onClick={handleLogout}
+          className={styles.btn_logout}
         >
-          logout
+          <IconLogout size={20}/>
         </button>
         )
     }
