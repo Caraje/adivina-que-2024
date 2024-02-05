@@ -27,3 +27,22 @@
   scale: 1.05;
   color: var(--aq-green);
 }
+
+.btn_user img{
+  border-radius: 50px;
+  border: 2px solid var(--aq-green);
+}
+
+
+.btn_logout {
+  background-color: transparent;
+  border: none;
+  color: var(--aq-green);
+  transition: scale .2s ease-in-out, filter .2s ease-in-out;
+}
+
+.btn_logout:hover {
+  cursor: pointer;
+  scale: 1.1;
+  filter: drop-shadow(0 0 10px var(--aq-highlights))
+}
