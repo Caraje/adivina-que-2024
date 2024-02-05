@@ -1,0 +1,12 @@
+.btn_link {
+  transition: 
+    color .2s ease-in-out,
+    scale .2s ease-in-out,
+    filter .2s ease-in-out
+}
+
+.btn_link:hover {
+  color: var(--aq-green);
+  scale: 1.1;
+  filter: drop-shadow(0 0 5px var(--aq-highlights));
+}
