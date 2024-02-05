@@ -12,7 +12,7 @@ export const SelectCategory = () => {
           className={styles.link}
         >          <CategoryCard 
             category={'Cine'} 
-            image={'./static_img/cinema.webp'}
+            image={'./static_img/movies_horizotal.webp'}
             points={999}
             correct={999}
             errors={999}
@@ -23,7 +23,7 @@ export const SelectCategory = () => {
           className={styles.link}
         >          <CategoryCard 
             category={'Series'} 
-            image={'./static_img/series.webp'}
+            image={'./static_img/series_horizotal.webp'}
             points={999}
             correct={999}
             errors={999}
@@ -34,7 +34,7 @@ export const SelectCategory = () => {
           className={styles.link}
         >          <CategoryCard 
             category={'Videojuegos'} 
-            image={'./static_img/videogames.webp'}
+            image={'./static_img/videogames_horizotal.webp'}
             points={999}
             correct={999}
             errors={999}
