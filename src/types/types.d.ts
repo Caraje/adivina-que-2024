@@ -7,7 +7,7 @@ export type RankList = {
   points: number
 }
 
-type Networks = {
+export type Networks = {
   network_id: string,
   network_name: string, 
   network_url: string
