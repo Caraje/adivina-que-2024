@@ -52,7 +52,7 @@ export const rankList: RankList[] = [
   {
     id: '9',
     name: 'kaisserTF',
-    avatar: './static_img/avatars/09.gif', 
+    avatar: './static_img/avatars/09.jpg', 
     points: 999
   },
   {
