@@ -1,0 +1,81 @@
+.card {
+  /* background-color: brown; */
+  position: relative;
+  min-width: 15rem;
+  min-height: 25rem;
+  flex-grow: 1;
+  flex-basis: 15rem;
+  border-radius: 15px;
+  border: 1px solid var(--aq-green);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+}
+
+
+.image_background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover
+}
+
+.void {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 5%, rgba(0,0,0,0) 50%);
+  z-index: 5;
+}
+
+.title {
+  position: relative;
+  z-index: 10;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+.score_board {
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+
+}
+
+.score_points {
+  color: var(--aq-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  }
+  
+  .score_correct {
+  color: var(--aq-green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  }
+  
+  .score_error {
+  color: var(--aq-alert);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  }
+  
+  .score_points p, 
+  .score_correct p, 
+  .score_error p {
+    color: var(--aq-light);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  
