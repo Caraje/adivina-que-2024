@@ -1,15 +1,21 @@
 import styles from '@/styles/Home/CategoryCard.module.css'
 import { IconError, IconRight, IconScore } from '../Icons'
+import { LevelsPassed } from '@/types/types'
 
 interface Props {
   category: string, 
   image: string,
-  points: number,
-  correct: number,
-  errors: number
+  userDataLevels: LevelsPassed[]
 }
 
-export const CategoryCard: React.FC<Props> = ({category, image, points= 0, correct= 0, errors= 0}) => {
+export const CategoryCard: React.FC<Props> = ({category,userDataLevels, image }) => {
+  // console.log({userDataLevels})
+  const errorFilter = userDataLevels?.filter((er:any) => !er.level_correct ) || []
+  const sucessFilter = userDataLevels?.filter((er:any) => er.level_correct ) || []
+  let totalPoints = 0
+  for (let i = 0; i < sucessFilter?.length; i++) { 
+    totalPoints += sucessFilter[i].level_points
+  }
   return (
     <article className={styles.card_category}>
       <section className={styles.score_board}>
@@ -17,15 +23,15 @@ export const CategoryCard: React.FC<Props> = ({category, image, points= 0, corre
         <section className={styles.score_card}>
           <article className={styles.score_points}>
             <IconScore size={35} />
-            <p>{points}</p>
+            <p>{totalPoints}</p> 
           </article>
           <article className={styles.score_correct}>
             <IconRight size={35} />
-            <p>{correct}</p>
+            <p>{sucessFilter?.length}</p>
           </article>
           <article className={styles.score_error}>
             <IconError size={35} />
-            <p>{errors}</p>
+            <p>{errorFilter?.length}</p> 
           </article>
         </section>
       </section>
