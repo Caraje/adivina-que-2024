@@ -5,7 +5,6 @@ import React from 'react'
 import { UserDataCard }  from '@/components/user/UserDataCard'
 import { ScoreCategoryCard } from './ScoreCategoryCard'
 import styles from '@/styles/user/UserPageSection.module.css'
-import { User } from '@/types/types'
 
 interface Props {
   id: string
