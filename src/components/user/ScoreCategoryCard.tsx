@@ -17,7 +17,7 @@ const title: {[key: string]: string} = {
   videogames: 'Videojuegos'
 }
 export const ScoreCategoryCard: React.FC<Props> = ({cat, info}) => {
-  console.log({info})
+  // console.log({info})
   const errorFilter = info?.filter((er:any) => !er.level_correct ) || []
     const sucessFilter = info?.filter((er:any) => er.level_correct ) || []
     let totalPoints = 0
