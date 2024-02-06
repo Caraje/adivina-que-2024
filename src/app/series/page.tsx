@@ -3,8 +3,8 @@ import { levelByCategory } from "@/controllers/levels";
 
 export default async function SeriesPage() {
   const levelList = await levelByCategory('series')
-  console.log(levelList)
+  const orderedLevelList = levelList.sort(() => Math.random() - 0.5 )
   return (
-    <GamePage cat={'series'} lvl={levelList}/>
+    <GamePage cat={'series'} lvl={orderedLevelList}/>
   )
 }
