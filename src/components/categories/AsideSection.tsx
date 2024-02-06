@@ -1,7 +1,8 @@
+'use client'
 import styles from '@/styles/catagories/AsideSection.module.css'
 import { RankCard } from '../Home/RankCard'
-import { rankList } from '@/utils/exampleRankUser'
 import { UserCard } from './UserCard'
+import { useUserList } from '@/hooks/usersList'
 
 interface Props {
   cat: string
@@ -10,11 +11,20 @@ interface Props {
 
 
 export const AsideSection: React.FC<Props> = ({cat}) => {
+  const usersData:any = useUserList()
+  // const usersList: User | null = usersData?.user
+  if(!usersData) {
+    return <div>Cargando...</div>
+  }
   return (
     <section className={styles.container}>
         <UserCard cat={cat}/>
       <section className={styles.rankBoard}> 
-        <RankCard cat={cat} list={rankList} isGame/>
+        <RankCard 
+          cat={cat} 
+          list={usersData.user} 
+          isGame
+        />
       </section>
     </section>
   )
