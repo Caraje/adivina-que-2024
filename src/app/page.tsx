@@ -4,10 +4,10 @@ import styles from '@/styles/Home/homePage.module.css'
 export default function HomePage() {
   return (
     <>
-      <div className={styles.container}>
+      <section className={styles.container}>
         <SelectCategory />
         <AsideRankings />
-      </div>
+      </section>
     </>
   )
 }
