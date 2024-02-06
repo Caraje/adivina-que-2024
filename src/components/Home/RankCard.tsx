@@ -1,11 +1,11 @@
-import { RankList } from '@/types/types'
+import { User } from '@/types/types'
 import styles from '@/styles/Home/RankCard.module.css'
 import stylesGame from '@/styles/catagories/RankCardGame.module.css'
-import Link from 'next/link'
+import { UserRankListCard } from './UserRankListCard'
 interface Props {
   cat: string, 
-  list: RankList[],
-  isGame: boolean
+  list: User[],
+  isGame?: boolean
 }
 interface CategoriesName {
   [key: string]: string;
@@ -19,33 +19,34 @@ const CategoriesName: CategoriesName = {
 export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
 
   const stylesComponent= isGame ? stylesGame : styles
+  const sumCategoryPoints = (category: any[]) =>
+    category.reduce((sum, item) => sum + item.level_points, 0)
+
+  const sortedUsers = list.sort((a, b) => {
+    const sumPointsA =
+      sumCategoryPoints(
+        cat === 'movies' ? a.user_datagame.movies 
+        : cat === 'series' ? a.user_datagame.series 
+        : a.user_datagame.videogames)
+  
+    const sumPointsB =
+      sumCategoryPoints(cat === 'movies' ? b.user_datagame.movies 
+        : cat === 'series' ? b.user_datagame.series 
+        : b.user_datagame.videogames) 
+  
+    return sumPointsB - sumPointsA;
+  });
   return (
     <article className={stylesComponent.card}>
       <h3 className={stylesComponent.card_title}>{CategoriesName[cat]}</h3>
         <ol className={stylesComponent.rank_list}>
           {
-            list.map(user => (
-              <Link 
-                href={'/user/id'}
-                className={stylesComponent.user_link}
-                key={user.id}
-              >
-                <li 
-                  className={stylesComponent.user}
-                  >
-                  <img 
-                    src={user.avatar}
-                    alt={`avatar de ${user.name}`}
-                    width={50}
-                    height={50}
-                    className={stylesComponent.user_avatar}
-                    />
-                  <div className={stylesComponent.user_info}>
-                    <h4 className={stylesComponent.user_name}>{user.name}</h4>
-                    <p className={stylesComponent.user_points}>{user.points}</p>
-                  </div>
-                </li>
-              </Link>
+            sortedUsers.map(user => (
+              <UserRankListCard 
+                key={user.user_id}
+                cat={cat}
+                user={user}
+              />
             ))
           }
         </ol>
