@@ -66,3 +66,24 @@ export const UpdateUserById = async (id: string, updateData: any) => {
     console.log(error)
   }
 }
+
+// Obtener Todos los usuarios
+
+export const getAllUsers = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users`, {
+      method: 'GET',
+      headers:{
+        'Content-type' : 'application/json'
+      }
+    })
+    if(!response.ok) {
+      throw new Error("No se ha podido recuperar la lista de usuarios");
+    }
+    const usersList = response.json()
+    return usersList
+
+  } catch (error) {
+    console.log(error)
+  }
+}
