@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const UserDataCard:React.FC<Props> = ({ userData }) => {
-  // console.log({userData})
+  console.log(userData?.user_networks)
   return (
     <article className={styles.card}>
       <img 
@@ -23,7 +23,7 @@ export const UserDataCard:React.FC<Props> = ({ userData }) => {
         <h2 className={styles.card_info_name}>{userData?.user_name.toUpperCase()}</h2>
         <section className={styles.card_info_group_networks}>
           {
-            userData?.user_networks.map(net => <SocialNetworkButton key={net.network_id} data={net}/>)
+            userData?.user_networks.map(net => net.network_url !== '' && <SocialNetworkButton key={net.network_id} data={net}/>)
           }
         </section>
       </section>
