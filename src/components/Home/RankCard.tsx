@@ -22,7 +22,7 @@ export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
   const sumCategoryPoints = (category: any[]) =>
     category.reduce((sum, item) => sum + item.level_points, 0)
 
-  const sortedUsers = list.sort((a, b) => {
+  const sortedUsers = list?.sort((a, b) => {
     const sumPointsA =
       sumCategoryPoints(
         cat === 'movies' ? a.user_datagame.movies 
@@ -41,7 +41,7 @@ export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
       <h3 className={stylesComponent.card_title}>{CategoriesName[cat]}</h3>
         <ol className={stylesComponent.rank_list}>
           {
-            sortedUsers.map(user => (
+            sortedUsers?.map(user => (
               <UserRankListCard 
                 key={user.user_id}
                 cat={cat}
