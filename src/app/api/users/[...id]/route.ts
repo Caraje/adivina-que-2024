@@ -11,12 +11,17 @@ export async function GET(req: Request, { params }: Params) {
   try {
     await connectDB()
     const foundUser = await User.findOne({user_id: id} )
-    const { user_password, ...cleanUser } = foundUser.toObject()
-    return NextResponse.json({
-      message: "Recuperar usuarios con el ID",
-      // foundUser,
-      cleanUser,
-    })
+    if(foundUser) {
+      const { user_password, ...cleanUser } = foundUser.toObject()
+      return NextResponse.json({
+        message: "Recuperar usuarios con el ID",
+        cleanUser,
+      })
+    } else {
+      return NextResponse.json({
+        message: "Usuario no encontrado con el ID proporcionado"
+      })
+    }
   } catch (error) {
     console.log(error)
   }
