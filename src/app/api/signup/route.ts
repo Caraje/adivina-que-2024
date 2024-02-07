@@ -37,10 +37,19 @@ export async function POST(request: Request) {
     status: 400
   })
   await connectDB()
-  const userFound = await User.findOne({user_email})
-  if(userFound) return NextResponse.json({
+  const [userFoundByMail, userFoundByName] = await Promise.all([
+    User.findOne({ user_email }),
+    User.findOne({ user_name }),
+  ]);
+  if(userFoundByMail) return NextResponse.json({
     message: 'El correo ya existe',
-    type: 2
+    type: 5
+  }, {
+    status: 400
+  })
+  if(userFoundByName) return NextResponse.json({
+    message: 'Ya existe un usuario con ese nombre',
+    type: 6
   }, {
     status: 400
   })
@@ -53,7 +62,6 @@ export async function POST(request: Request) {
     user_password: hashedPass,
   })
   const savedUser = await user.save()
-  console.log(savedUser)
   return NextResponse.json(savedUser)
   } catch (error) {
     console.log(error)
