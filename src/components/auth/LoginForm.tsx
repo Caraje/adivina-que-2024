@@ -1,21 +1,30 @@
+import { checkValidUser } from '@/controllers/users'
 import { useModalStore } from '@/store/modal-store'
 import styles from '@/styles/modalLogin/LoginForm.module.css'
 import { CreateUser } from '@/types/types'
 import { signIn } from 'next-auth/react'
+import { useState } from 'react'
 
 interface Props {
   toRegister: React.Dispatch<React.SetStateAction<boolean>>
 }
 export const LoginForm: React.FC<Props> = ({ toRegister }) => {
   const { toggleModal } = useModalStore()
+  const [isError, setIsError] = useState<number >(0)
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
-    const userData = Object.fromEntries(formData.entries()) as CreateUser;
-    const res = await signIn('credentials', {
-      email: userData.user_email,
-      password: userData.user_password
+    const {user_email,user_password } = Object.fromEntries(formData.entries()) as CreateUser;
+    const isValidUser = await checkValidUser(user_email, user_password)
+    if(!isValidUser.ok){
+      setIsError(isValidUser.type)
+      return
+    }
+    setIsError(0)
+    await signIn('credentials', {
+      email: user_email,
+      password: user_password
     })
   }
   return (
@@ -49,6 +58,10 @@ export const LoginForm: React.FC<Props> = ({ toRegister }) => {
                 placeholder="email@email.com"
                 autoComplete="off"
                 />
+              {
+                (isError === 1 || isError === 2) && 
+                (<small>El correo o la contraseña no son validos</small>)
+              }
             </label>
             <label className={styles.form_label}>
               password: 
@@ -59,8 +72,12 @@ export const LoginForm: React.FC<Props> = ({ toRegister }) => {
                 placeholder="Password"
                 autoComplete="off"
                 />
+              {
+                (isError === 1 || isError === 2) && 
+                (<small>El correo o la contraseña no son validos</small>)
+              }
             </label>
-          <button>Enviar</button>
+          <button className={styles.btn_send}>Enviar</button>
           </form>
           {/* <button onClick={() => signIn("github")}>Sign in with Github</button> */}
         </header>
