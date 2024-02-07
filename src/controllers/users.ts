@@ -14,10 +14,10 @@ export const registerNewUser = async(userData: CreateUser) => {
       },
       body: JSON.stringify(userData)
     })
-    if(!response.ok) {
-      throw new Error("No se ha podido crear el usuario");
-    }
     const user = await response.json()
+    // if(!response.ok) {
+    //   throw new Error("No se ha podido crear el usuario");
+    // }
     return user
   } catch (error) {
     console.log(error)
@@ -86,4 +86,21 @@ export const getAllUsers = async () => {
   } catch (error) {
     console.log(error)
   }
+}
+
+
+export const checkValidUser = async (userEmail: string, userPass: string)  => {
+try {
+  const response = await fetch(`${BASE_URL}/users?email=${userEmail}&pass=${userPass}`, {
+    method: 'GET',
+    headers:{
+      'Content-type' : 'application/json'
+    }
+  })
+  const validUser = response.json()
+  return validUser
+
+} catch (error) {
+  console.error(error)
+}
 }
