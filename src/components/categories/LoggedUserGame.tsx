@@ -132,7 +132,12 @@ export const LoggedUserGame: React.FC<Props> = ({listLevels, cat, userData}) => 
           handleForm={handleForm}
         />
         )
-        : <button onClick={handleNextLevel}>Siguiente Nivel</button>
+        : <button 
+            onClick={handleNextLevel}
+            className={styles.btn_nextLevel}
+          >
+            Siguiente Nivel
+          </button>
       }
       {
         lvlPosition !== 0 && (
