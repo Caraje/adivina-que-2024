@@ -31,3 +31,21 @@
   font-size: 2rem;
   font-weight: 700;
 }
+
+
+.btn_nextLevel {
+  border: none;
+  border-radius: 5px;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: var(--aq-green);
+  transition: scale .2s ease-in-out, filter .2s ease-in-out, color .2s ease-in-out;
+}
+
+.btn_nextLevel:hover {
+  cursor: pointer;
+  scale: 1.1;
+  filter: drop-shadow(0 0 15px var(--aq-highlights));
+  color: var(--aq-light);
+}
