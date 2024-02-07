@@ -13,6 +13,7 @@ interface Props {
 export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
   const { toggleModal } = useModalStore()
   const [isError, setisError] = useState<number >(0)
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const handleForm = async (event: React.FormEvent<HTMLFormElement>)=> {
     event.preventDefault()
     const form = event.currentTarget
@@ -20,9 +21,10 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
     const userData = Object.fromEntries(formData.entries()) as CreateUser;
     try {
       const user  = await registerNewUser(userData)
-
-      if(user.type !== 0) {
+      if(user.type ) {
         setisError(user.type)
+        setErrorMessage(user.message)
+        return
       }
       await signIn('credentials', {
         email: user.user_email,
@@ -35,6 +37,13 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
 
   }
 
+  /*
+    Type: 1  => Se debe introducir un nombre de usuario
+    Type: 2  => Se debe introducir una dirección de correo
+    Type: 3  => El password debe contener al menos 6 caracteres
+    Type: 4  => El password debe coincidir
+    Type: 5  => El correo ya existe 
+  */
   return (
 <section className={styles.container}>
       <section className={styles.user_section}>
@@ -57,6 +66,10 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 placeholder="Nombre de Usuario"
                 autoComplete="off"
               />
+              {
+                (isError === 1 || isError === 6) && 
+                (<small>{errorMessage}</small>)
+              }
             </label>
             <label className={styles.form_label}>
               Email: 
@@ -67,6 +80,10 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 placeholder="email@email.com"
                 autoComplete="off"
                 />
+              {
+                (isError === 2 || isError === 5) && 
+                (<small>{errorMessage}</small>)
+              }
             </label>
             <label className={styles.form_label}>
               Password: 
@@ -77,9 +94,10 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 placeholder="Password"
                 autoComplete="off"
                 />
-              {/* {
-                isError.status && <p>{isError.message}</p>
-              } */}
+              {
+                (isError === 3 || isError === 4) && 
+                (<small>{errorMessage}</small>)
+              }
             </label>
             <label className={styles.form_label}>
               Repite password: 
@@ -90,11 +108,12 @@ export const RegisterForm: React.FC<Props> = ({ toLogin }) => {
                 placeholder="Repite el Password"
                 autoComplete="off"
                 />
-              {/* {
-                isError.status && isError.message
-              } */}
+              {
+                (isError === 4) && 
+                (<small>{errorMessage}</small>)
+              }
             </label>
-            <button>Enviar</button>
+            <button className={styles.btn_send}>Enviar</button>
           </form>
         </header>
         <div className={styles.footer}>
