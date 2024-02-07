@@ -29,7 +29,6 @@ export const DemoGame: React.FC<Props> = ({listLevels}) => {
       </section>
       )
   }
-  console.log(listLevels.length)
   const totalClues = [
     {clue: ''},
     ...listLevels[level].level_clue
@@ -103,7 +102,12 @@ export const DemoGame: React.FC<Props> = ({listLevels}) => {
         handleForm={handleForm}
       />
       )
-      : <button onClick={handleNextLevel}>Siguiente Nivel</button>
+      : <button 
+          onClick={handleNextLevel}
+          className={styles.btn_nextLevel}
+        >
+          Siguiente Nivel
+        </button>
     }
     {
       lvlPosition !== 0 && (
