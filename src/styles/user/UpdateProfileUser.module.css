@@ -1,0 +1,157 @@
+.modal_container {
+  position: relative;
+  border: 2px solid var(--aq-green);
+  padding: 2rem;
+  border-radius: 15px;
+  min-width: 30rem;
+}
+
+.btn_close {
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: .5rem;
+  height: .5rem;
+  align-self: flex-end;
+  background-color: transparent;
+  border-radius: 50px;
+  border: 2px solid var(--aq-green);
+  color: var(--aq-green);
+  padding: .6rem;
+  transition: filter .2s ease-in-out;
+}
+
+.btn_close:hover {
+  filter: brightness(1.5);
+  cursor: pointer;
+}
+
+
+.form_container{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+
+.form_user {
+  display: flex;
+  gap: 1rem;
+}
+
+.form_user_avatar{
+  /* width: 35%; */
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--aq-green);
+  border-radius: 15px;
+  line-height: 0;
+}
+
+.form_user_avatar_label {
+  transition: filter .2s ease-in-out
+}
+.form_user_avatar_label:hover {
+  cursor: pointer;
+  filter: brightness(.7);
+}
+
+.input_avatar {
+  display: none;
+}
+
+.form_user_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.form_label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: .8rem;
+  font-weight: 700;
+}
+.form_label input {
+  /* width: 100%; */
+  padding: .4rem;
+  border-radius: 10px;
+  border:none;
+
+}
+
+.form_button_group {
+  display: flex;
+  gap: .5rem;
+}
+
+.form_btn_pass{
+  width: 50%;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--aq-green);
+  padding: .5rem 1rem;
+  font-weight: 700;
+  transition: scale .2s ease-in-out,filter .2s ease-in-out 
+}
+.form_btn_delete{
+  width: 50%;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--aq-alert);
+  padding: .5rem 1rem;
+  font-weight: 700;
+  color: var(--aq-light);
+  transition: scale .2s ease-in-out, filter .2s ease-in-out
+}
+
+.form_btn_pass:hover, .form_btn_delete:hover {
+  cursor: pointer;
+  scale: 1.05;
+  filter: drop-shadow(0 0 5px solid var(--aq-highlights))
+}
+
+.form_section {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  /* width: 100%; */
+}
+
+
+
+.form_btn_update_pass {
+  align-self: flex-end;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--aq-green);
+  padding: .5rem 1rem;
+  font-weight: 700;
+  transition: scale .2s ease-in-out,filter .2s ease-in-out 
+}
+
+.form_btn_update_pass:hover {
+  cursor: pointer;
+  scale: 1.05;
+  filter: drop-shadow(0 0 5px solid var(--aq-highlights))
+}
+
+
+
+.form_section_password {
+  margin-top: 2rem;
+  border: 2px solid var(--aq-green);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: 1rem;
+  /* width: 100%; */
+}
