@@ -54,3 +54,15 @@ export type CreateUser = {
   user_password: string, 
   user_password_repeat: string
 }
+
+
+export type ImageCloudinary = {
+  bytes: number,
+  created_at: string, 
+  format: string, 
+  height: string,
+  public_id: string,
+  url: string,
+  version: number,
+  width: number
+}
