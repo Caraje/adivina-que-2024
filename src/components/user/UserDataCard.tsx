@@ -4,11 +4,13 @@ import React from 'react'
 import { SocialNetworkButton } from './SocialNetworkButton'
 
 interface Props {
-  userData: User | null
+  userData: User | null,
+  isOpen?: boolean,
+  isActualUser?: boolean,
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const UserDataCard:React.FC<Props> = ({ userData }) => {
-  console.log(userData?.user_networks)
+export const UserDataCard:React.FC<Props> = ({ userData, isOpen, setIsOpen, isActualUser= false }) => {
   return (
     <article className={styles.card}>
       <img 
@@ -26,6 +28,18 @@ export const UserDataCard:React.FC<Props> = ({ userData }) => {
             userData?.user_networks.map(net => net.network_url !== '' && <SocialNetworkButton key={net.network_id} data={net}/>)
           }
         </section>
+        {
+
+        }
+        {
+          isActualUser && (
+            <button
+              onClick={() => setIsOpen && setIsOpen(!isOpen)}
+            >
+              Editar Perfil
+              </button> 
+          )
+        }
       </section>
     </article>
   )
