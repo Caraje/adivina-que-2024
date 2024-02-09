@@ -19,14 +19,14 @@ export const UserPageSection: React.FC<Props> = ({id}) => {
     return <div>Cargando...</div>
   }
   if(user?.user_id === id) {
-    console.log({user})
+    console.log({userPage})
     return (
       <>
         <section className={styles.container}>
         {
           isOpen && (
             <section className={styles.modalUpdate}>
-              <UpdateProfileUser user={user} isOpen={isOpen} setIsOpen={setIsOpen}   />
+              <UpdateProfileUser user={userPage} isOpen={isOpen} setIsOpen={setIsOpen}   />
             </section>
           )
         }
