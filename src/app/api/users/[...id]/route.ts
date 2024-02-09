@@ -40,16 +40,24 @@ export async function POST(request: Request) {
 export async function PUT(req: Request, { params }: Params) {
   const user = await req.json()
   const {id} = params
-  
+
   try {
-    // await connectDB()
-    const userUpdated = await User.findOneAndUpdate({user_id: id}, user)
+    await connectDB()
+    console.log({user})
+    const userUpdated = await User.findOneAndUpdate({user_id: id}, user, { new: true })
+    if(userUpdated) {
+      return NextResponse.json({
+        ok:true,
+        message: 'Usuario actualizado',
+        userUpdated
+      })
+    }
     return NextResponse.json({
-      message: 'Usuario actualizado',
-      userUpdated
+      ok:false,
+      message: 'No se ha podido actualizar el usuario'
     })
   } catch (error) {
-    
+    console.error(error)
   }
   return NextResponse.json({
     message: 'se actualiza los datos del usuario',
