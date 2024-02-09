@@ -1,7 +1,10 @@
-import { ImageCloudinary, User } from '@/types/types'
+import { User } from '@/types/types'
 import styles from '@/styles/user/UpdateProfileUser.module.css'
 import { useState } from 'react'
 import { uploadToCloudinary } from '@/config/cloudinary'
+import { useSession } from 'next-auth/react'
+import { UpdateUserById } from '@/controllers/users'
+import useUserData from '@/hooks/user'
 
 interface Props {
   user: User,
@@ -15,21 +18,35 @@ type FormValues = {
   newPassB: string, 
 }
 export const UpdateProfileUser: React.FC<Props> = ({user,isOpen, setIsOpen}) => {
+  const { data, status, update } = useSession()
+  const userActive: any  = data?.user
   const [isOpenPassword, setIsOpenPassword] = useState(false)
   const [userName, setUserName] = useState<string>(user.user_name)
   const [userEmail, setUserEmail] = useState(user.user_email)
   const [userAvatar, setUserAvatar] = useState(user.user_avatar)
   const [userNetworks, setUserNetworks] = useState(user.user_networks)
 
-  const handleForm = (event: React.FormEvent<HTMLFormElement>) => {
+
+  if(status === 'loading') {
+    return (<div>Cargando...</div>)
+  }
+
+  if(status === 'authenticated' && data?.user) {
+  const handleUpdateUser = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const updatedUser  = {
+    const newUser  = {
       ...user,
       user_name: userName,
       user_email: userEmail,
       user_avatar: userAvatar,
       user_networks: userNetworks
     }
+    const updatedUser = await UpdateUserById(userActive.user_id, newUser, user.user_name, user.user_email)
+    // if(updatedUser.ok) {
+    //   update(newUser)
+    //   setIsOpen(false)
+    //   return
+    // }
     console.log({updatedUser})
   }
   const handleUpdatePassword = (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,7 +75,7 @@ export const UpdateProfileUser: React.FC<Props> = ({user,isOpen, setIsOpen}) => 
         onClick={() => {setIsOpen(!isOpen)}}
       >X</button>
       <h2>Actualizar Perfil</h2>
-      <form onSubmit={handleForm} className={styles.form_container}>
+      <form onSubmit={handleUpdateUser} className={styles.form_container}>
         <section className={styles.form_user}>
           <header className={styles.form_user_avatar}>
             <label className={styles.form_user_avatar_label}>
@@ -167,5 +184,7 @@ export const UpdateProfileUser: React.FC<Props> = ({user,isOpen, setIsOpen}) => 
           )
         }
     </article>
-  )
+  )}
+
+
 }
