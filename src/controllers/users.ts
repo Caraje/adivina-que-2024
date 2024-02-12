@@ -1,4 +1,5 @@
 import { CreateUser, User } from "@/types/types"
+import bcrypt from 'bcryptjs';
 
 
 // Constantes
@@ -26,7 +27,7 @@ export const registerNewUser = async(userData: CreateUser) => {
 
 
 // Obtener usuario por la ID
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: string, passCheck: boolean | null) => {
   try {
     const response = await fetch(`${BASE_URL}/users/${id}`, {
       method: 'GET',
@@ -39,6 +40,7 @@ export const getUserById = async (id: string) => {
     }
 
     const user = await response.json()
+    if(passCheck) return user
     return user.cleanUser
   } catch (error) {
     console.log(error)
@@ -65,7 +67,6 @@ const fetchUpdateUser = async (id:string, updateData: User) => {
 
 
 export const UpdateUserById = async (id: string, updateData: User, actualName:string | null , actualEmail:string | null ) => {
-// console.log({id, updateData})
   try {
     if(id === updateData.user_id){
       
@@ -75,38 +76,30 @@ export const UpdateUserById = async (id: string, updateData: User, actualName:st
         const newUser = await fetchUpdateUser(id, updateData) 
         return newUser
       }
-      /*
-        Comprobaciones:
-        El correo es igual, hacer comprobacion de si exite otro usuario con el mismo nombre
-          Si existe otro usuario con el mismo nombre, lanzar error
-          si no existe otro usuario con el mismo nombre, guardar la info
 
-        EL nombre es igual, hacer comprobacion de si existe otro usuario con el mismo correo
-          Si existe otro usuario con el mismo correo, lanzar error.
-          Si no existe otro usuario con el mismo correo, guardar la info.
-      */
-      
-      const isCorrect = await checkValidUser(updateData.user_email, null ,updateData.user_name)
-      
-      console.log('Primera comprobacion del is Correct => ',isCorrect.type ,{isCorrect})
-      if(isCorrect.type === 2 && actualEmail === updateData.user_email) { 
-        console.log('El usuario actualizo el nombre pero no el correo, por lo que puede actualizar')
+      if(actualName !== updateData.user_name) {
+        const isCorrect = await checkValidUser(updateData.user_email, null ,updateData.user_name)
         if(isCorrect.type === 1) return isCorrect
-        const newUser = await fetchUpdateUser(id, updateData) 
-        return newUser
+        if(isCorrect.type === 2 && actualEmail === updateData.user_email) {
+          console.log('El usuario ha cambiado(y no hay otro igual), pero el correo no, por lo que puede grabar datos')
+          const newUser = await fetchUpdateUser(id, updateData) 
+          return newUser
+        }        
       }
 
-      if(isCorrect.type === 1 && actualName === updateData.user_name) {
-        console.log('El usuario actualizo el correo pero no el nombre, por lo que puede actualizarse')
-
-        console.log({isCorrect})
+      if(actualEmail !== updateData.user_email) {
+        const isCorrect = await checkValidUser(updateData.user_email, null ,'Break')
         if(isCorrect.type === 2) return isCorrect
-        const newUser = await fetchUpdateUser(id, updateData) 
-        return newUser
+        if(isCorrect.type === 3 && actualName === updateData.user_name) {
+          console.log(isCorrect, 'El correo ha cambiado (y no hay otro igual), pero el nombre de usuario no')
+          const newUser = await fetchUpdateUser(id, updateData) 
+          return newUser
+        }  
       }
-
-      console.log('esto entra=?', { isCorrect})
-      return isCorrect
+      const isCorrect = await checkValidUser(updateData.user_email, null ,updateData.user_name)
+      if(!isCorrect.ok) return isCorrect
+      const newUser = await fetchUpdateUser(id, updateData) 
+      return newUser
     }
     } catch (error) {
     console.log(error)
@@ -125,6 +118,7 @@ export const checkValidUser = async (userEmail: string, userPass: string | null,
       const validUser = response.json()
       return validUser
     }
+
     if(userEmail && userPass) {
       const response = await fetch(`${BASE_URL}/users?email=${userEmail}&pass=${userPass}`, {
         method: 'GET',
@@ -140,6 +134,41 @@ export const checkValidUser = async (userEmail: string, userPass: string | null,
     console.error(error)
   }
   }
+
+  export const updateUserPassword = async (actualUser: User, id:string, oldPass:string, newPass:string, newPassB: string) => {
+    if( newPass === '' || newPassB === '' || oldPass === '' ) return({
+        ok: false,
+        type: 10,
+        msg: 'No puede dejar este campo vacio'
+      })
+
+    if(newPass.length < 6 ) return({
+        ok: false,
+        type: 11,
+        msg: 'Debe tener al menos 6 caracteres'
+      })
+
+    if(newPass !== newPassB ) return({
+        ok: false,
+        type: 12,
+        msg: 'Estos dos campos han de ser identicos'
+      })
+    
+    const user = await getUserById(id,true)
+    const passMatch = await bcrypt.compare(oldPass, user.user_password)
+    if(!passMatch) return ({
+      ok: false,
+      type: 13,
+      msg: 'La contraseña no es correcta'
+    })
+    const newUser = {
+      ...actualUser,
+      user_password:  await bcrypt.hash(newPass, 12)
+    }
+    const updatedUser = await fetchUpdateUser(id, newUser) 
+    return updatedUser
+    }
+
 
 // Obtener Todos los usuarios
 
@@ -160,6 +189,28 @@ export const getAllUsers = async () => {
   } catch (error) {
     console.log(error)
   }
+}
+
+
+export const deleteUser = async (id: string) => {
+
+  try {
+    const response = await fetch(`${BASE_URL}/users/${id}`, {
+      method: 'DELETE',
+      headers:{
+        'Content-type' : 'application/json'
+      }
+    })
+    if(!response.ok) {
+      throw new Error("No se ha podido borrar el usuario");
+    }
+    const isDelete = response.json()
+    return isDelete
+
+  } catch (error) {
+    console.log(error)
+  }
+
 }
 
 
