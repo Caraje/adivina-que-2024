@@ -2,13 +2,13 @@
 import styles from '@/styles/Home/AsideRankings.module.css'
 import { RankCard } from './RankCard'
 import { useUserList } from '@/hooks/usersList'
+import AsideRankings_skeleton from '../Skeletons/AsideRankings_skeleton'
 
 
 const AsideRankings = () => {
   const usersData:any = useUserList()
-  // const usersList: User | null = usersData?.user
   if(!usersData) {
-    return <div>Cargando...</div>
+    return <AsideRankings_skeleton/>
   }
   return (
     <aside className={styles.aside_home}>
