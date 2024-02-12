@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { signOut } from "next-auth/react"
 import Link from 'next/link'
 import useUserData from '@/hooks/user'
-import { User } from '@/types/types'
+import { UserCard_Skeleton } from '../Skeletons/UserCard_Skeleton'
 
 
 export const UserButton = () => {
@@ -14,9 +14,9 @@ export const UserButton = () => {
   const { data, status } = useSession()
   const user:any = data?.user
   const userState: any = useUserData(user?.user_id)
-
+  
   if(status === 'loading') {
-    return (<div>Cargando...</div>)
+    return (<UserCard_Skeleton />)
   }
   if(status === 'authenticated' && data?.user) {
     // console.log(usernew)
