@@ -40,7 +40,7 @@ export async function GET(req: NextRequest ) {
     })
   }
 
-  if( user_email || user_password) {
+  if( user_email && user_password) {
     await connectDB()
     const userFoundByMail = await User.findOne({user_email})
     if(!userFoundByMail) return NextResponse.json({
