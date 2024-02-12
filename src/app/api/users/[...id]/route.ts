@@ -16,6 +16,7 @@ export async function GET(req: Request, { params }: Params) {
       return NextResponse.json({
         message: "Recuperar usuarios con el ID",
         cleanUser,
+        user_password
       })
     } else {
       return NextResponse.json({
@@ -43,7 +44,6 @@ export async function PUT(req: Request, { params }: Params) {
 
   try {
     await connectDB()
-    console.log({user})
     const userUpdated = await User.findOneAndUpdate({user_id: id}, user, { new: true })
     if(userUpdated) {
       return NextResponse.json({
@@ -64,6 +64,31 @@ export async function PUT(req: Request, { params }: Params) {
     id
   })
 }
-export async function DELETE(req: Request) {
-  return new Response('hola desde levels DELETE')
+export async function DELETE(req: Request, { params }: Params) {
+  const {id} = params
+  console.log(id)
+  if(!id) {
+    return NextResponse.json({
+      ok: false,
+      message: 'Falta un ID valido'
+    })
+  }
+  await connectDB()
+  const userFoundByid = await User.findOne({user_id: id})
+  if(userFoundByid) {
+    const deleteUser = await User.deleteOne({ user_id: id });
+    if(deleteUser.deletedCount === 1) {
+      return NextResponse.json({
+        ok: true, 
+        message: 'Se ha borrado el usuario',
+        deleteUser
+      })
+    }
+    return NextResponse.json({
+      ok: false, 
+      message: 'No se ha podido borrar el usuario',
+      type: 20
+    })
+
+  }
 }
