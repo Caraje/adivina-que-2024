@@ -7,6 +7,7 @@ import { NavCategories } from '@/components/layout/NavCategories'
 import { UserButton } from '@/components/layout/UserButton'
 import { Login } from '@/components/auth/Modal'
 import { Providers } from '@/components/layout/Providers'
+import { Footer } from '@/components/layout/Footer'
 
 const nunito = Nunito({ subsets: ['latin'] })
 export const metadata: Metadata = {
@@ -39,6 +40,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           </header>
           
           {children}
+          
+        <footer>
+          <Footer />
+        </footer>
         </body>
       </html>
     </Providers>
