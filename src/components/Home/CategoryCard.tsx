@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const CategoryCard: React.FC<Props> = ({category,userDataLevels, image }) => {
-  // console.log({userDataLevels})
   const errorFilter = userDataLevels?.filter((er:any) => !er.level_correct ) || []
   const sucessFilter = userDataLevels?.filter((er:any) => er.level_correct ) || []
   let totalPoints = 0
@@ -20,7 +19,10 @@ export const CategoryCard: React.FC<Props> = ({category,userDataLevels, image })
     <article className={styles.card_category}>
       <section className={styles.score_board}>
         <h2 className={styles.title_card}>{category}</h2>
-        <section className={styles.score_card}>
+        {
+          userDataLevels && (
+
+          <section className={styles.score_card}>
           <article className={styles.score_points}>
             <IconScore size={35} />
             <p>{totalPoints}</p> 
@@ -34,6 +36,7 @@ export const CategoryCard: React.FC<Props> = ({category,userDataLevels, image })
             <p>{errorFilter?.length}</p> 
           </article>
         </section>
+        )}
       </section>
       <div className={styles.background_card}>
         <div className={styles.void} />
