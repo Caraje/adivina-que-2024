@@ -4,6 +4,7 @@ import { CategoryCard } from './CategoryCard'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import useUserData from '@/hooks/user'
+import { SelectCategory_Skeleton } from '../Skeletons/SelectCategory_Skeleton'
 
 export const SelectCategory = () => {
   const { data, status } = useSession()
@@ -12,7 +13,7 @@ export const SelectCategory = () => {
   
   
   if (status === 'loading') {
-    return <div>Cargando...</div>
+    return <SelectCategory_Skeleton />
   }
   return (
     <main className={styles.select_category}>
