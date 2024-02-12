@@ -1,5 +1,5 @@
 .container {
-  min-height: 90dvh;
+  /* min-height: 90dvh; */
   position: relative;
   max-width: 1400px;
   display: flex;
@@ -38,7 +38,6 @@
 .modalUpdate {
   position: absolute;
   width: 100%;
-  height: 100%;
   background-color: var(--aq-background);
   z-index: 20;
   display: flex;
@@ -48,7 +47,3 @@
   padding: 1rem;
 
 }
-/*  
-  flex-grow: 1;
-  flex-basis: 15rem;
-*/
