@@ -106,7 +106,7 @@ export const UpdateUserById = async (id: string, updateData: User, actualName:st
   }
 }
 
-export const checkValidUser = async (userEmail: string, userPass: string | null, name: string)  => {
+export const checkValidUser = async (userEmail: string, userPass: string | null, name: string | null)  => {
   try {
     if(name && userEmail) {
       const response = await fetch(`${BASE_URL}/users?email=${userEmail}&name=${name}`, {
