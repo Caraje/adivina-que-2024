@@ -9,7 +9,7 @@ const useUserData = (id:string) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getUserById(id);
+        const result = await getUserById(id, false);
         setUserData(result);
       } catch (error) {
         console.error("Error al obtener los datos del usuario:", error);
