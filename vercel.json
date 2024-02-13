@@ -14,7 +14,7 @@
     { "src": "/.*", "dest": "/index.html" }
   ],
   "env": {
-    "NEXT_PUBLIC_URL_BASE": "https://adivina-que.vercel.app/api",
-    "NEXTAUTH_URL": "https://adivina-que.vercel.app"
+    "NEXT_PUBLIC_URL_BASE": "https://adivina-que-2024-git-main-caraje.vercel.app/api",
+    "NEXTAUTH_URL": "https://adivina-que-2024-git-main-caraje.vercel.app"
   }
 }
