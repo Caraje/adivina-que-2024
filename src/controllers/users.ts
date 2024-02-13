@@ -66,11 +66,13 @@ const fetchUpdateUser = async (id:string, updateData: User) => {
 }
 
 
+export const updateScoreUserById = async (id: string, updateData: User) => {
+  const newUser = await fetchUpdateUser(id, updateData) 
+  return newUser
+}
 export const UpdateUserById = async (id: string, updateData: User, actualName:string | null , actualEmail:string | null ) => {
   try {
-    if(id === updateData.user_id){
-      
-      
+    if(id === updateData.user_id){     
       if(actualName === updateData.user_name && actualEmail === updateData.user_email) {
         console.log('El usuario No ha cambiado ni el nombre ni el correo y puede actualizarse')
         const newUser = await fetchUpdateUser(id, updateData) 

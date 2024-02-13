@@ -5,7 +5,7 @@ import { FormGame } from './FormGame'
 import { useState } from 'react'
 import { ClueGame } from './ClueGame'
 import { LevelGame } from '@/types/types'
-import { UpdateUserById } from '@/controllers/users'
+import { UpdateUserById, updateScoreUserById } from '@/controllers/users'
 import { useSession } from 'next-auth/react'
 
 
@@ -72,7 +72,7 @@ export const LoggedUserGame: React.FC<Props> = ({listLevels, cat, userData}) => 
       : cat === 'series' ? user.user_datagame.series.push(levelPoints)
       : user.user_datagame.videogames.push(levelPoints)
     update(userData)
-    await UpdateUserById(user.user_id, userData, null, null)
+    await updateScoreUserById(user.user_id, userData)
     setLvlPosition(0)
     setIsCorrect('pending')
     setFormAnswer('')
