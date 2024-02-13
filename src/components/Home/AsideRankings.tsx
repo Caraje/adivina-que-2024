@@ -7,6 +7,7 @@ import AsideRankings_skeleton from '../Skeletons/AsideRankings_skeleton'
 
 const AsideRankings = () => {
   const usersData:any = useUserList()
+
   if(!usersData) {
     return <AsideRankings_skeleton/>
   }
@@ -15,15 +16,15 @@ const AsideRankings = () => {
       <h2>Top 10</h2>
       <RankCard 
         cat='movies'
-        list={usersData.user}
+        list={usersData?.user}
       />
       <RankCard 
         cat='series'
-        list={usersData.user}
+        list={usersData?.user}
       />
       <RankCard 
         cat='videogames'
-        list={usersData.user}
+        list={usersData?.user}
       />
     </aside>
   )
