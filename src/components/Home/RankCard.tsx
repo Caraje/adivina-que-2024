@@ -2,6 +2,7 @@ import { User } from '@/types/types'
 import styles from '@/styles/Home/RankCard.module.css'
 import stylesGame from '@/styles/catagories/RankCardGame.module.css'
 import { UserRankListCard } from './UserRankListCard'
+import { RankCardGame_skeleton } from '../Skeletons/RankCardGame_skeleton'
 interface Props {
   cat: string, 
   list: User[],
@@ -21,6 +22,11 @@ export const RankCard: React.FC<Props> = ({cat, list, isGame= false}) => {
   const stylesComponent= isGame ? stylesGame : styles
   const sumCategoryPoints = (category: any[]) =>
     category.reduce((sum, item) => sum + item.level_points, 0)
+
+
+  if(!list) {
+    return (<RankCardGame_skeleton cat={cat}/>)
+  }
 
   const sortedUsers = list?.sort((a, b) => {
     const sumPointsA =

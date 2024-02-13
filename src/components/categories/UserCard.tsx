@@ -3,6 +3,7 @@ import styles from '@/styles/catagories/UserCard.module.css'
 import { IconError, IconRight, IconScore } from '../Icons'
 import { useSession } from 'next-auth/react'
 import useUserData from '@/hooks/user'
+import { UserCard_skeleton } from '../Skeletons/UserCardGame_skeleton'
 
 interface Props {
   cat: string
@@ -25,7 +26,7 @@ export const UserCard: React.FC<Props> = ({cat}) => {
 
     // EStado pendiente
     if(status === 'loading') {
-      return <div>cargando...</div>
+      return <UserCard_skeleton />
     }
     if(status === 'authenticated' && data?.user) {
       return (

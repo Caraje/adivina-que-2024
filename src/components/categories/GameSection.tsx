@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import useUserData from '@/hooks/user'
 import { DemoGame } from './DemoGame'
 import { LoggedUserGame } from './LoggedUserGame'
+import { GamePage_skeleton } from '../Skeletons/GamePage_skeleton'
 
 interface Props {
   cat: string,
@@ -21,7 +22,7 @@ export const GameSection: React.FC<Props> = ({cat, lvl}) => {
   
   // EStado pendiente
   if(status === 'loading') {
-    return <div>cargando...</div>
+    return <GamePage_skeleton /> 
   }
   // EStado usuario logueado
   if(status === 'authenticated' && data?.user) {
