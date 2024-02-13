@@ -2,6 +2,8 @@
   max-width: 1400px;
   margin: 0 auto;
   color: var(--aq-light);
+  padding: 1rem;
+
 }
 
 .navbar {
@@ -15,7 +17,6 @@
 
 
 .logoLink{
-  /* flex-grow: 1; */
   width: 7rem;
   transition: 
     scale .2s ease-in-out,
