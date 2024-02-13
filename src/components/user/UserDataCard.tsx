@@ -35,6 +35,7 @@ export const UserDataCard:React.FC<Props> = ({ userData, isOpen, setIsOpen, isAc
           isActualUser && (
             <button
               onClick={() => setIsOpen && setIsOpen(!isOpen)}
+              className={styles.btn_update}
             >
               Editar Perfil
               </button> 
