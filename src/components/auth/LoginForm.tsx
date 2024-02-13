@@ -16,7 +16,7 @@ export const LoginForm: React.FC<Props> = ({ toRegister }) => {
     const form = event.currentTarget
     const formData = new FormData(form)
     const {user_email,user_password } = Object.fromEntries(formData.entries()) as CreateUser;
-    const isValidUser = await checkValidUser(user_email, user_password)
+    const isValidUser = await checkValidUser(user_email, user_password, null)
     if(!isValidUser.ok){
       setIsError(isValidUser.type)
       return
