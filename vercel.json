@@ -1,0 +1,20 @@
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/*",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ],
+  "env": {
+    "NEXT_PUBLIC_URL_BASE": "https://adivina-que.vercel.app/api",
+    "NEXTAUTH_URL": "https://adivina-que.vercel.app"
+  }
+}
