@@ -1,0 +1,53 @@
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem;
+  border: 1px solid  var(--aq-highlights);
+  border-radius: 25px;
+  background-color: var(--aq-background);
+  filter: drop-shadow(0 0 10px var(--aq-shadowsGreen));
+}
+
+.avatar{
+  width: 5rem;
+  aspect-ratio: 1;
+  background-color: var(--aq-shadowsGreen);
+  border: 2px solid  var(--aq-highlights);
+  border-radius: 50px;
+  opacity: .5;
+}
+
+.user_data{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+.user_score_group{
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  
+}
+
+.user_name{
+  width: 7rem;
+  height: 2rem;
+  background-color: var(--aq-shadowsGreen);
+  border-radius: 10px;
+  opacity: .5;
+  
+}
+
+
+.user_score{
+  width: 2rem;
+  aspect-ratio: 1;
+  background-color: var(--aq-shadowsGreen);
+  border-radius: 10px;
+  opacity: .5;
+}
