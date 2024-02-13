@@ -1,19 +1,32 @@
 .footer_web {
   padding: 2rem 0 1rem 0;
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   flex-grow: 1;
   flex-basis: 20rem;
 }
 
+@media (min-width: 768px) {
+  .footer_web {    
+    justify-content: space-between;
+  }
+}
+
 
 .footer_sponsored {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
   gap: .5rem;
+}
+@media (min-width: 768px) {
+  .footer_sponsored {
+    align-items: flex-start;
+    gap: .5rem;
+  }
 }
 
 .footer_webmaster {
@@ -28,8 +41,14 @@
 .footer_donation {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: .5rem;
+}
+
+@media (min-width: 768px) {
+  .footer_donation {
+    align-items: flex-end;
+  }
 }
 
 .footer_sponsored h4,
@@ -48,3 +67,4 @@
   scale: 1.1;
   color: var(--aq-yellow);
 }
+

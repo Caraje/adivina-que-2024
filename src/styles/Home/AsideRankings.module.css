@@ -3,10 +3,18 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  min-width: 20rem;
   padding: 1rem;
   border: 1px solid  var(--aq-highlights);
   border-radius: 25px;
   background-color: var(--aq-background);
   filter: drop-shadow(0 0 10px var(--aq-shadowsGreen));
+  width: 100%;
+}
+
+
+@media (min-width: 768px) {
+  .aside_home{
+    min-width: 20rem;
+    width: 20%;
+  }
 }

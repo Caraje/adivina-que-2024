@@ -1,8 +1,10 @@
 .container{
   display: flex;
+  flex-direction: column-reverse;
   gap: 1rem;
   align-items: center;
   max-width: 1000px;
+  width: 95%;
   height: 50rem;
   background-color: var(--aq-background);
   border-radius: 20px;
@@ -10,15 +12,40 @@
   filter: drop-shadow(0 0 25px var(--aq-shadowsGreen));
   overflow: hidden;
 }
+
+@media (min-width: 768px) {
+  .container{
+  flex-direction: row;
+  }
+}
+
 .picture_container{
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  height: 50%;
   line-height: 0;
 }
+
+@media (min-width: 768px) {
+  .picture_container{
+    width: 50%;
+    height: 100%;
+  }
+}
+
 .loginImage {
   object-fit: cover;
+  object-position: 0px 60px;
   height: 100%;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .loginImage {
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .user_section {
@@ -33,6 +60,9 @@
 }
 
 .btn_close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

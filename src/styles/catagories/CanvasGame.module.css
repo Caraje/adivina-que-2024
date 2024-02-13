@@ -2,7 +2,9 @@
 .canvas{
   margin-top: 2rem;
   position: relative;
-  width: 40rem;
+  /* min-width: 14rem; */
+  /* max-width: 40rem; */
+  width: 100%;
   aspect-ratio: 16/9;
   display: flex;
   justify-content: center;
@@ -10,6 +12,14 @@
   overflow: hidden;
   filter: drop-shadow(0 0 15px var(--aq-shadowsGreen));
 }
+
+@media (min-width: 768px) {
+  .canvas{
+    width: 100%;
+  }
+}
+
+
 .frame_Level{
   position: absolute;
   width: 100%;

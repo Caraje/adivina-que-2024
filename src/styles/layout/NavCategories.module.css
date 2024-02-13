@@ -1,14 +1,18 @@
-
 .nav_categories {
-  width: min-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  border: 1px solid var(--aq-highlights);
-  border-radius: 500px ;
-  padding: .5rem 1.5rem;
+  display: none;
+}
 
+@media (min-width: 768px) {
+  .nav_categories {
+    width: min-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--aq-highlights);
+    border-radius: 500px ;
+    padding: .5rem 1.5rem;
+  }
 }
 
 .cat_link{
