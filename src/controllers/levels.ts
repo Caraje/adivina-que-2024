@@ -1,8 +1,9 @@
+import { NEXT_PUBLIC_URL_BASE } from "@/utils/env"
 
 
 export const levelByCategory = async (cat: string) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/levels/${cat}`, )
+    const response = await fetch(`${NEXT_PUBLIC_URL_BASE}/levels/${cat}`, )
     if (response.ok) {
       const {levelList} = await response.json()
       return levelList
