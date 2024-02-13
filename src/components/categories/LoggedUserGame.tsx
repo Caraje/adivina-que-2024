@@ -72,7 +72,7 @@ export const LoggedUserGame: React.FC<Props> = ({listLevels, cat, userData}) => 
       : cat === 'series' ? user.user_datagame.series.push(levelPoints)
       : user.user_datagame.videogames.push(levelPoints)
     update(userData)
-    await UpdateUserById(user.user_id, userData)
+    await UpdateUserById(user.user_id, userData, null, null)
     setLvlPosition(0)
     setIsCorrect('pending')
     setFormAnswer('')
