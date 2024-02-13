@@ -13,16 +13,13 @@ interface Props {
 export const AsideSection: React.FC<Props> = ({cat}) => {
   const usersData:any = useUserList()
   // const usersList: User | null = usersData?.user
-  if(!usersData) {
-    return <div>Cargando...</div>
-  }
   return (
     <section className={styles.container}>
         <UserCard cat={cat}/>
       <section className={styles.rankBoard}> 
         <RankCard 
           cat={cat} 
-          list={usersData.user} 
+          list={usersData?.user} 
           isGame
         />
       </section>
