@@ -10,9 +10,55 @@ import { Providers } from '@/components/layout/Providers'
 import { Footer } from '@/components/layout/Footer'
 
 const nunito = Nunito({ subsets: ['latin'] })
+const keywordsSeo: string[] = [
+  "juego",
+  "prueba",
+  "conocimientos",
+  "cine",
+  "series",
+  "videojuegos",
+  "adivinanza",
+  "titulos",
+  "imagenes",
+  "puntuacion",
+  "tabla",
+  "jugador",
+  "desafio",
+  "entretenimiento",
+  "puntaje",
+  "competencia",
+  "diversion",
+  "ranking",
+  "desafiar",
+  "competir",
+]
 export const metadata: Metadata = {
-  title: 'Adivina que',
-  description: 'Pon a prueba tu conocimiento sobre series, peliculas y videojuegos',
+
+  title: 'AdivinaQue',
+  description: 'Adivina que se trata de un juego que busca poner a prueba al jugador en sus conocimientos sobre cine, series y videojuegos, adivina los titulos gracias a cinco imagenes y puntua para estar en lo mas alto de la tabla',
+  authors: [{ name: 'AdivinaQue' }, { name: 'AdivinaQue', url: 'https://adivina-que.vercel.app/' }],
+  keywords: keywordsSeo,
+  openGraph: {
+    title: 'AdivinaQue',
+    description: 'Adivina que se trata de un juego que busca poner a prueba al jugador en sus conocimientos sobre cine, series y videojuegos, adivina los titulos gracias a cinco imagenes y puntua para estar en lo mas alto de la tabla',
+    url: 'https://adivina-que.vercel.app/',
+    siteName: 'adivina-que.vercel.app',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/caraje/image/upload/v1708077015/AdivinaQue/voavj5hsmzjol52e4sz8.webp',
+        width: 800,
+        height: 600
+      },
+      {
+        url: 'https://res.cloudinary.com/caraje/image/upload/v1708077015/AdivinaQue/voavj5hsmzjol52e4sz8.webp',
+        width: 1800,
+        height: 1600,
+        alt: 'Imagen de pagina web de AdivinaQue'
+      }
+    ],
+    locale: 'es_ES',
+    type: 'website'
+  }
 }
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
