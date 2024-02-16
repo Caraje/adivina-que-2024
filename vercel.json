@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/signup",
+      "methods": ["GET,OPTIONS,PATCH,DELETE,POST,PUT"],
+      "headers": ["Content-Type"],
+      "allow": ["https://adivina-que.vercel.app"]
+    }
+  ]
+}
