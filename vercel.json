@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/api/signup",
-      "methods": ["GET,OPTIONS,PATCH,DELETE,POST,PUT"],
+      "methods": ["OPTIONS", "POST"],
       "headers": {
         "Access-Control-Allow-Origin": "https://adivina-que.vercel.app",
         "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
